@@ -1,0 +1,20 @@
+# node package download 
+node_modules
+**/node_modules
+
+# macos
+.DS_Store
+
+# production
+dist
+**/dist
+
+# ssr production
+dist-ssr
+**/dist-ssr
+
+# local env
+*.local
+
+# pnpm package npmrc
+pnpm-lock.yaml

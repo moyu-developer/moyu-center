@@ -1,0 +1,18 @@
+{
+  "name": "moyu-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app:dev": "pnpm run dev --filter @moyu/client",
+    "app:build": "pnpm run build --filter @moyu/client",
+    "server": "pnpm run dev --filter @moyu/server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "typescript": "^4.3.2"
+  }
+}
