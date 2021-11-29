@@ -1,0 +1,13 @@
+{
+  "0 error pnpm": {
+    "fileName": "/Users/wangly19/Desktop/手写源码分析/Mock平台项目/moyu-api/app/server/package.json",
+    "codeFrame": "\u001b[0m \u001b[90m 45 |\u001b[39m     \u001b[32m\"typescript\"\u001b[39m\u001b[33m:\u001b[39m \u001b[32m\"^4.3.5\"\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 46 |\u001b[39m   }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 47 |\u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 48 |\u001b[39m\u001b[0m",
+    "code": "ERR_PNPM_JSON_PARSE",
+    "err": {
+      "name": "pnpm",
+      "message": "Unexpected token \"}\" (0x7D) in JSON at position 1423 while parsing near \"...ipt\\\": \\\"^4.3.5\\\"\\n  },\\n}\\n\" in /Users/wangly19/Desktop/手写源码分析/Mock平台项目/moyu-api/app/server/package.json \n\n\u001b[0m \u001b[90m 45 |\u001b[39m     \u001b[32m\"typescript\"\u001b[39m\u001b[33m:\u001b[39m \u001b[32m\"^4.3.5\"\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 46 |\u001b[39m   }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 47 |\u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 48 |\u001b[39m\u001b[0m\n",
+      "code": "ERR_PNPM_JSON_PARSE",
+      "stack": "pnpm: Unexpected token \"}\" (0x7D) in JSON at position 1423 while parsing near \"...ipt\\\": \\\"^4.3.5\\\"\\n  },\\n}\\n\" in /Users/wangly19/Desktop/手写源码分析/Mock平台项目/moyu-api/app/server/package.json \n\n\u001b[0m \u001b[90m 45 |\u001b[39m     \u001b[32m\"typescript\"\u001b[39m\u001b[33m:\u001b[39m \u001b[32m\"^4.3.5\"\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 46 |\u001b[39m   }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 47 |\u001b[39m }\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 48 |\u001b[39m\u001b[0m\n\n    at parseJson (/Users/wangly19/.config/yarn/global/node_modules/pnpm/dist/pnpm.cjs:3116:27)\n    at readJsonFile (/Users/wangly19/.config/yarn/global/node_modules/pnpm/dist/pnpm.cjs:40912:42)\n    at async readExactProjectManifest (/Users/wangly19/.config/yarn/global/node_modules/pnpm/dist/pnpm.cjs:41045:34)\n    at async /Users/wangly19/.config/yarn/global/node_modules/pnpm/dist/pnpm.cjs:46617:16"
+    }
+  }
+}
