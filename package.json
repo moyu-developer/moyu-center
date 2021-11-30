@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client:dev": "pnpm run dev --filter @moyu/client",
-    "client:build": "pnpm run build --filter @moyu/client",
-    "server:dev": "pnpm run start:dev --filter @moyu/server",
-    "server:build": "pnpm run build --filter @moyu/server"
+    "dev:client": "pnpm run dev --filter @moyu/client",
+    "build:client": "pnpm run build --filter @moyu/client",
+    "dev:server": "pnpm run start:dev --filter @moyu/server",
+    "build:server": "pnpm run build --filter @moyu/server",
+    "preview": "pnpm run serve --filter @moyu/server"
   },
   "author": "",
   "license": "ISC",
