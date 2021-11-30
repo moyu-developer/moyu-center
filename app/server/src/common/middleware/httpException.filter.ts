@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
-import { codeMessage, HttpCode } from '../common/http'
+import { codeMessage } from '../enums/http'
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -15,11 +15,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     const message = exception.message || codeMessage[httpStatus] || '服务器繁忙，请稍后再试'
 
+    console.log(httpStatus)
+
     response.status(200);
     response.send({
       data: null,
       message,
-      code: HttpCode.SERVER_FAIL
+      code: httpStatus
     })
   }
 }
