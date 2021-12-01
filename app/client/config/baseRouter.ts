@@ -3,8 +3,9 @@ import { SmileOutlined } from '@ant-design/icons';
 import Namespace from '../src/pages/namespace'
 import Layout from '../src/layouts'
 import Project from '../src/pages/project'
+import Login from '../src/pages/login'
 
-import type { Router } from '@/router/RouterViews'
+import type { Router } from 'src/router/RouterViews'
 
 export default [
   {
@@ -30,4 +31,9 @@ export default [
       },
     ],
   },
+  {
+    path: '/login',
+    meta: {},
+    component: createElement(Login),
+  }
 ] as Router[]

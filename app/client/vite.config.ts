@@ -31,6 +31,7 @@ export default defineConfig({
       // fix less import by: @import ~
       { find: /^~/, replacement: '' },
       { find: 'config', replacement: resolve(__dirname, 'config') },
+      { find: 'src', replacement: resolve(__dirname, './src') },
     ],
   },
 

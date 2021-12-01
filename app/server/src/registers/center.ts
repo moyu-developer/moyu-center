@@ -9,22 +9,17 @@ const swaggerOptions = new DocumentBuilder()
   .setVersion('1.0')
   .build();
 
-/**
- * 创建Swagger Docs
- * @param app NestApp实例
- */
-function createSwaggerDocs (app: INestApplication) {
-  const docs = SwaggerModule.createDocument(app, swaggerOptions)
-  SwaggerModule.setup('docs.html', app, docs)
-}
-
-export default function registerAllMiddleware (app) {
+export default function registerAllMiddleware (app: INestApplication) {
   /** 注册http错误过滤器 */
   app.useGlobalFilters(new HttpExceptionFilter())
 
   /** 注册响应结果拦截器 */
   app.useGlobalInterceptors(new TransformResponseInterceptor())
+
+  /** 注册路由前缀 */
+  app.setGlobalPrefix('api')
   
   /** 创建swagger文档 */
-  createSwaggerDocs(app)
+  const docs = SwaggerModule.createDocument(app, swaggerOptions)
+  SwaggerModule.setup('docs.html', app, docs)
 }
