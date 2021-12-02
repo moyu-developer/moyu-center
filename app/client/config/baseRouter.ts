@@ -4,6 +4,7 @@ import Namespace from '../src/pages/namespace'
 import Layout from '../src/layouts'
 import Project from '../src/pages/project'
 import Login from '../src/pages/login'
+import NoFound from '../src/pages/no-found'
 
 import type { Router } from 'src/router/RouterViews'
 
@@ -18,6 +19,7 @@ export default [
       {
         path: '/project',
         name: '项目管理',
+        auth: [0, 1],
         meta: {},
         component: createElement(Project),
         icon: createElement(SmileOutlined),
@@ -35,5 +37,9 @@ export default [
     path: '/login',
     meta: {},
     component: createElement(Login),
+  },
+  {
+    path: '*',
+    component: createElement(NoFound)
   }
 ] as Router[]
