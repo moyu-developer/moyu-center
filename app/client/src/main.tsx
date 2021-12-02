@@ -7,7 +7,7 @@ import './common/style/reset.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store as never}>
+    <Provider store={store}>
       <RouterViews/>
     </Provider>
     <RouterViews/>

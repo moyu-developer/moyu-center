@@ -1,7 +1,6 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "./connect";
 
-
 interface CommonState {
   token: string
 }
