@@ -11,9 +11,11 @@
     "@ant-design/pro-form": "^1.49.3",
     "@ant-design/pro-layout": "^6.31.2",
     "@ant-design/pro-table": "^2.58.1",
+    "@rematch/core": "^2.2.0",
     "antd": "^4.17.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-redux": "^7.2.6",
     "react-router-dom": "6"
   },
   "devDependencies": {

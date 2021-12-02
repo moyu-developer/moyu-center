@@ -7,14 +7,16 @@ import {
 
 import type { FC } from "react";
 
+const arr =Array.from(new Array(100 + 1).keys()).slice(1)
+
 export interface ProjectCardListProps {
-  status: string | number;
+  status?: string | number;
 }
 
 export default (() => {
   return (
     <Row gutter={[20, 20]}>
-      {[1, 23].map((item) => {
+      {arr.map((item) => {
         return (
           <Col span={3} key={item}>
             <Card

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Outlet, Link } from 'react-router-dom'
-import { Descriptions, Avatar} from "antd";
+import { useState, useEffect } from "react";
+import { Outlet, Link,  } from 'react-router-dom'
+import { Avatar} from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import logo from '../icons/logo.svg'
 
@@ -21,6 +21,10 @@ export default () => {
     layout: 'top'
   });
   const [pathname, setPathname] = useState(BASE_PATH);
+
+  useEffect(() => {
+  }, [])
+
   return (
     <div
       id="moyu-center"
