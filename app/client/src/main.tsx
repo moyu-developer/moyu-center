@@ -10,7 +10,6 @@ ReactDOM.render(
     <Provider store={store}>
       <RouterViews/>
     </Provider>
-    <RouterViews/>
   </React.StrictMode>,
   document.getElementById('root')
 )

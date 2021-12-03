@@ -18,7 +18,7 @@ export default (() => {
     <Row gutter={[20, 20]}>
       {arr.map((item) => {
         return (
-          <Col span={3} key={item}>
+          <Col span={4} key={item}>
             <Card
               actions={[
                 <SettingOutlined key="setting" />,

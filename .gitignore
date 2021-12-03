@@ -19,3 +19,8 @@ dist-ssr
 # pnpm package npmrc
 pnpm-lock.yaml
 .pnpm-debug.log
+
+
+# npm
+
+package-lock.json
