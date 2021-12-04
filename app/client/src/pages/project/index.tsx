@@ -1,23 +1,42 @@
 import { PageContainer } from "@ant-design/pro-layout";
-import { Card } from "antd";
 import { MENU_TAB_OPTIONS, CREATE_ACTION } from "./constant";
 import CreateProjectModal from "./CreateProjectModal";
 import ProjectCardList from "./ProjectCardList";
 import ProCard from "@ant-design/pro-card";
+import { Button, Badge } from "antd";
+import styles from './index.module.less'
 
 export default () => {
   return (
     <PageContainer
-      fixedHeader
       tabList={MENU_TAB_OPTIONS}
-      extra={[<CreateProjectModal action={CREATE_ACTION.ADD} />]}
+      extra={[
+        <Button type="primary" danger>
+          批量删除
+        </Button>,
+        <CreateProjectModal action={CREATE_ACTION.ADD} />,
+      ]}
     >
       <ProCard split="vertical">
-        <ProCard title="左侧详情" colSpan="30%">
-          左侧内容
+        <ProCard title="业务线归属" colSpan="250px" >
         </ProCard>
-        <ProCard title="左右分栏子卡片带标题" headerBordered>
-          <ProjectCardList />
+        <ProCard
+          tabs={{
+            activeKey: "tab1",
+          }}
+        >
+          <ProCard.TabPane key="tab1" tab="项目服务">
+            <ProjectCardList />
+          </ProCard.TabPane>
+          <ProCard.TabPane key="tab2" tab="操作记录">
+            内容二
+          </ProCard.TabPane>
+          <ProCard.TabPane key="tab3" tab="成员列表">
+            内容二
+          </ProCard.TabPane>
+          <ProCard.TabPane key="tab4" tab="业务线设置">
+            内容二
+          </ProCard.TabPane>
         </ProCard>
       </ProCard>
     </PageContainer>

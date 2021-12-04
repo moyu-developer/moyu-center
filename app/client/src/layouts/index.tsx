@@ -16,7 +16,7 @@ import baseRouter from 'config/baseRouter'
 
 export default () => {
   const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
-    fixSiderbar: true,
+    fixedHeader: true,
     navTheme: 'light',
     layout: 'top'
   });

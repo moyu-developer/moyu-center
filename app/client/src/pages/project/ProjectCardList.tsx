@@ -4,10 +4,11 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
+import ProCard from "@ant-design/pro-card";
 
 import type { FC } from "react";
 
-const arr =Array.from(new Array(100 + 1).keys()).slice(1)
+const arr = Array.from(new Array(10 + 1).keys()).slice(1);
 
 export interface ProjectCardListProps {
   status?: string | number;
@@ -15,23 +16,24 @@ export interface ProjectCardListProps {
 
 export default (() => {
   return (
-    <Row gutter={[20, 20]}>
+    <Row gutter={[20, 20]} justify="start">
       {arr.map((item) => {
         return (
-          <Col span={4} key={item}>
-            <Card
+          <Col key={item}>
+            <ProCard
+              bordered
+              title="Actions 操作项"
+              style={{ width: 250 }}
               actions={[
                 <SettingOutlined key="setting" />,
                 <EditOutlined key="edit" />,
                 <EllipsisOutlined key="ellipsis" />,
               ]}
             >
-              <Card.Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
+              <div>Card content</div>
+              <div>Card content</div>
+              <div>Card content</div>
+            </ProCard>
           </Col>
         );
       })}
