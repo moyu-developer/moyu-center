@@ -29,7 +29,7 @@ export default () => {
     <div
       id="moyu-center"
       style={{
-        height: "100vh",
+        height: "100%",
       }}
     >
       <ProLayout
@@ -56,7 +56,7 @@ export default () => {
         )}
         rightContentRender={() => (
           <div>
-            <Avatar shape="square" size="small" icon={<UserOutlined />} />
+            <Avatar shape="square" size="small" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
           </div>
         )}
         {...settings}
