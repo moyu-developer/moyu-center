@@ -11,7 +11,7 @@ import { UsersModule } from './users/users.module';
       envFilePath: ['.development.env'],
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
-    UsersModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],

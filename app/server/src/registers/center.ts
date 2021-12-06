@@ -1,5 +1,5 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import type { INestApplication } from '@nestjs/common'
+import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { HttpExceptionFilter } from '../common/middleware/httpException.filter'
 import { TransformResponseInterceptor } from '../common/middleware/transformResponse.interceptor'
 
@@ -10,6 +10,10 @@ const swaggerOptions = new DocumentBuilder()
   .build();
 
 export default function registerAllMiddleware (app: INestApplication) {
+
+  /** 全局使用管道 */
+  // app.useGlobalPipes(new ValidationPipe())
+
   /** 注册http错误过滤器 */
   app.useGlobalFilters(new HttpExceptionFilter())
 
