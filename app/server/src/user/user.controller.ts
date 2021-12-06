@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, UsePipes } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UserDto } from 'src/document';
 import { UserService } from './user.service'
+import { ValidationPipe } from 'src/common/pipe/validation'
 
-@Controller('user')
+@Controller('user/v1/')
 @ApiTags('user')
 export class UserController {
   constructor (private readonly userService: UserService) {}
@@ -14,6 +15,8 @@ export class UserController {
    * @returns 
    */
   @Post('create')
+  @UsePipes(new ValidationPipe())
+  @ApiOperation({ summary: '添加用户' })
   async createUser (@Body() user: UserDto): Promise<UserDto['_id']> {
     return this.userService.create(user)
   }
@@ -23,6 +26,7 @@ export class UserController {
    * 获取用户列表
    */
   @Get('list')
+  @ApiOperation({ summary: '查询用户列表' })
   async getUserList () {
     return this.userService.queryAllUser()
   }

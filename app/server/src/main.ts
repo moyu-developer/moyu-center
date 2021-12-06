@@ -10,6 +10,8 @@ async function bootstrap() {
   registerAllMiddleware(app);
 
   /** 服务👌 */
-  await app.listen(8301);
+  await app.listen(8301, () => {
+    console.log('open serve： http://localhost:8301');
+  });
 }
 bootstrap();
