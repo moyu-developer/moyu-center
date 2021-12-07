@@ -1,5 +1,5 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common'
+import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { HttpExceptionFilter } from '../common/middleware/httpException.filter'
 import { TransformResponseInterceptor } from '../common/middleware/transformResponse.interceptor'
 
@@ -7,12 +7,13 @@ const swaggerOptions = new DocumentBuilder()
   .setTitle('Moyu Center API')
   .setDescription('🦑moyu center 接口文档中心，用于站点接口调试以及OpenAPI展示。（仅限内部使用）')
   .setVersion('1.0')
+  .addBearerAuth()
   .build();
 
 export default function registerAllMiddleware (app: INestApplication) {
 
   /** 全局使用管道 */
-  // app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe())
 
   /** 注册http错误过滤器 */
   app.useGlobalFilters(new HttpExceptionFilter())

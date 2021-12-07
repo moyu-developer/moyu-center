@@ -1,17 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose'
-import { IsString, IsNotEmpty } from 'class-validator'
+import { Document } from 'mongoose';
+import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 @Schema({
-  collection: 'user'
+  collection: 'user',
 })
 export class UserDto extends Document {
   @Prop({ required: true })
   @IsString()
   @IsNotEmpty({ message: '用户名称不能为空' })
   @ApiProperty({ description: '用户名称', required: true })
-  readonly name: string
+  readonly name: string;
 
   @Prop({ required: true })
   @IsString()
@@ -19,14 +20,14 @@ export class UserDto extends Document {
   @ApiProperty({ description: '用户密码', required: true })
   readonly password: string
 
-  @Prop({ default: 'xxxxx' })
+  @Prop({ default: '' })
   @IsString()
   @ApiProperty({ description: '用户头像' })
   readonly avatar: string
 
   @Prop({ required: true, default: false })
-  @ApiProperty({ description: '是否删除字段' })
+  @Exclude()
   isDelete: boolean
 }
 
-export const UserModel = SchemaFactory.createForClass(UserDto)
+export const UserModel = SchemaFactory.createForClass(UserDto);

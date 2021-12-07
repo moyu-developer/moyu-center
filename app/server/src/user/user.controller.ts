@@ -5,7 +5,7 @@ import { UserService } from './user.service'
 import { ValidationPipe } from 'src/common/pipe/validation'
 
 @Controller('user/v1/')
-@ApiTags('user')
+@ApiTags('用户')
 export class UserController {
   constructor (private readonly userService: UserService) {}
 
