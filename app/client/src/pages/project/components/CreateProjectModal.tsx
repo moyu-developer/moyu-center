@@ -6,7 +6,7 @@ import ProForm, {
   ProFormSelect,
 } from '@ant-design/pro-form';
 import { SendOutlined } from "@ant-design/icons";
-import { CREATE_MODAL_TITLE, CREATE_ACTION } from './constant'
+import { CREATE_MODAL_TITLE, CREATE_ACTION } from '../constant'
 
 
 import type { FC } from 'react'

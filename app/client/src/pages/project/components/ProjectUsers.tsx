@@ -1,7 +1,6 @@
-import React from "react";
 import { Button, Tag, Space } from "antd";
 import ProList from "@ant-design/pro-list";
-import styles from "./index.module.less";
+import styles from "../index.module.less";
 
 const dataSource = [
   {
