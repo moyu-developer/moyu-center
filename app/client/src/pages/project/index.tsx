@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { PageContainer } from "@ant-design/pro-layout";
 import { MENU_TAB_OPTIONS, CREATE_ACTION } from "./constant";
-import CreateProjectModal from "./CreateProjectModal";
+import CreateProjectModal from "./components/CreateProjectModal";
 import ProjectCardList from "./components/ProjectCardList";
-import ProjectUsers from "./ProjectUsers";
-import OperatingLog from './OperatingLog';
-import Setting from './Setting';
+import ProjectUsers from "./components/ProjectUsers";
+import OperatingLog from './components/OperatingLog';
+import Setting from './components/Setting';
 import ProCard from "@ant-design/pro-card";
 import { Button, Badge } from "antd";
 import styles from './index.module.less'
@@ -18,9 +18,6 @@ export default () => {
     <PageContainer
       tabList={MENU_TAB_OPTIONS}
       extra={[
-        <Button type="primary" danger key="delete-action">
-          批量删除
-        </Button>,
         <CreateProjectModal action={CREATE_ACTION.ADD} key="create-action" />,
       ]}
     >

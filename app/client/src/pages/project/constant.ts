@@ -21,6 +21,13 @@ export enum CREATE_ACTION {
   CHANGE
 }
 
+export enum CARD_ACTION {
+  DELETE,
+  CHANGE,
+  SETTING,
+  QUERY
+}
+
 export const CREATE_MODAL_TITLE: Record<CREATE_ACTION, string> = {
   0: '新增项目',
   1: '修改项目'
