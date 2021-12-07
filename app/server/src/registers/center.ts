@@ -7,6 +7,7 @@ const swaggerOptions = new DocumentBuilder()
   .setTitle('Moyu Center API')
   .setDescription('🦑moyu center 接口文档中心，用于站点接口调试以及OpenAPI展示。（仅限内部使用）')
   .setVersion('1.0')
+  .addBearerAuth()
   .build();
 
 export default function registerAllMiddleware (app: INestApplication) {
