@@ -15,6 +15,7 @@ export class AuthService {
   async validateUser(username: string, password: string): Promise<any> {
     console.log('JWT验证 - Step 2: 校验用户信息');
     const user = await this.usersService.findByUserName(username);
+    console.log(user)
     if (user) {
       const hashedPassword = user.password;
       const salt = user.salt;
@@ -45,9 +46,9 @@ export class AuthService {
   async certificate(user: any) {
     const payload = {
       username: user.username,
-      sub: user.userId,
-      realName: user.realName,
-      role: user.role,
+      userId: user._id,
+      mobile: user.mobile,
+      emali: user.emali
     };
     console.log('JWT验证 - Step 3: 处理 jwt 签证');
     try {
