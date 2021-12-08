@@ -1,7 +1,8 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { INestApplication, ValidationPipe } from '@nestjs/common'
+import { INestApplication } from '@nestjs/common'
 import { HttpExceptionFilter } from '../common/middleware/httpException.filter'
 import { TransformResponseInterceptor } from '../common/middleware/transformResponse.interceptor'
+import { ValidationPipe } from 'src/common/pipe/validation';
 
 const swaggerOptions = new DocumentBuilder()
   .setTitle('Moyu Center API')
