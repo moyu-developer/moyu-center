@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
+import { WorkModule } from './work/work.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { UsersModule } from './users/users.module';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     UserModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    WorkModule,
   ],
   controllers: [AppController, UserController, UsersController],
   providers: [AppService],
