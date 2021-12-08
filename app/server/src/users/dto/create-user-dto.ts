@@ -17,7 +17,7 @@ export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty({ message: '邮箱不能为空' })
   @ApiProperty({ example: 'admin@qq.com', description: '邮箱' })
-  readonly emali: string;
+  readonly email: string;
 
   @IsPhoneNumber('CH')
   @IsNotEmpty({ message: '联系电话不能为空' })

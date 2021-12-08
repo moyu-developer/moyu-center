@@ -48,7 +48,7 @@ export class AuthService {
       username: user.username,
       userId: user._id,
       mobile: user.mobile,
-      emali: user.emali
+      email: user.email
     };
     console.log('JWT验证 - Step 3: 处理 jwt 签证');
     try {

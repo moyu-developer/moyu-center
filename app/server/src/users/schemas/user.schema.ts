@@ -13,7 +13,7 @@ export class User {
   username: string;
 
   @Prop({ required: true })
-  emali: string;
+  email: string;
 
   @Prop({ required: true })
   mobile: string;

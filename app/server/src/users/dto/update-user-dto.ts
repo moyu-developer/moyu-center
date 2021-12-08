@@ -23,7 +23,7 @@ export class UpdateUserDto {
   @IsOptional()
   @IsEmail()
   @ApiProperty({ example: 'admin@qq.com', description: '邮箱' })
-  readonly emali: string;
+  readonly email: string;
 
   @IsOptional()
   @IsPhoneNumber('CH')

@@ -11,7 +11,7 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { username, password, emali, mobile } = createUserDto;
+    const { username, password, email, mobile } = createUserDto;
     const user = await this.userModel.findOne({ username });
     if (!user) {
       const salt = makeSalt(); // 制作密码盐
@@ -19,7 +19,7 @@ export class UsersService {
       const createdUser = new this.userModel({
         username,
         password: hashPwd,
-        emali,
+        email,
         salt,
         mobile,
       });
