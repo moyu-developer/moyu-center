@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user-dto';
 import { User, UserDocument } from './schemas/user.schema';
 import { makeSalt, encryptPassword } from 'src/common/utils/cryptogram';
-import { LoginUserDto } from './dto/login-user-dto';
+import { UpdateUserDto } from './dto/update-user-dto';
 
 @Injectable()
 export class UsersService {
@@ -23,17 +23,36 @@ export class UsersService {
         salt,
         mobile,
       });
-      return createdUser.save();
+      return (await createdUser.save())._id;
     }
     throw new BadRequestException(`用户名：${createUserDto.username} 已存在!`);
   }
 
+  async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
+    try {
+      const updateUserInfo = { ...updateUserDto, salt: makeSalt() };
+      if (updateUserDto.password) {
+        updateUserInfo.password = encryptPassword(
+          updateUserDto.password,
+          updateUserInfo.salt,
+        ); // 加密密码
+      }
+      const user = await this.userModel.findOneAndUpdate(
+        { _id: id },
+        updateUserInfo,
+      );
+      if (user) return user._id;
+    } catch (error) {
+      throw new BadRequestException(`用户不存在`);
+    }
+  }
+
   async findAll(): Promise<User[]> {
-    return this.userModel.find({}, { password: 0, __v: 0 }).exec();
+    return this.userModel.find({}, { password: 0, salt: 0 }).exec();
   }
 
   async findOne(id: string): Promise<User> {
-    return this.userModel.findById(id, { password: 0, __v: 0 });
+    return this.userModel.findById(id, { password: 0, salt: 0 });
   }
 
   async findByUserName(username: string): Promise<User> {
