@@ -1,39 +1,39 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongoSchema } from 'mongoose';
-import { IsString, IsNotEmpty, Length } from 'class-validator';
+import { IsString, IsNotEmpty, Length, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
-import { UserDto, UserModel } from '.';
+import { User } from 'src/users/schemas/user.schema'
 
+export type WorkDto = Work & Document
 @Schema({
   collection: 'work',
   timestamps: true,
-  id: true
 })
-export class WorkDto extends Document {
+export class Work {
 
   @Prop({ required: true })
-  @IsString()
+  @IsString({ message: '业务线名称只能为字符串' })
   @IsNotEmpty({ message: '业务线名称不能为空' })
-  @Length(3, 10)
+  @MaxLength(10, { message: '业务线名称不能超过十个字符' })
   @ApiProperty({ description: '业务线名称', required: true })
-  readonly name: string;
+  name: string;
 
 
   @Prop({ default: '创建人什么都没有留下！' })
-  @IsString()
+  @IsString({ message: '业务线描述只能为字符串' })
   @Length(3, 50)
   @ApiProperty({ description: '业务线简介' })
-  readonly description: string;
+  description: string;
 
-  @Prop({ type: MongoSchema.Types.ObjectId, ref: 'UserDto' })
-  @IsString()
-  @IsNotEmpty({ message: '创建用户不存在' })
-  readonly user: UserDto['_id']
+  @Prop({ type: MongoSchema.Types.ObjectId, ref: 'User', required: true })
+  user: User
 
-  @Prop({ required: true, default: false, })
-  @Exclude()
+  @Prop({ select: false, default: false })
   isDelete: boolean
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }
 
-export const WorkModel = SchemaFactory.createForClass(WorkDto);
+export const WorkModel = SchemaFactory.createForClass(Work);

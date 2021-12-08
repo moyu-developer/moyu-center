@@ -1,34 +1,43 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { WorkDto } from 'src/document';
+import { HttpCode } from 'src/common/enums/http';
+import { GlobalServiceError } from 'src/common/utils';
+import { WorkDto, Work } from 'src/document';
+import { UserDocument } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class WorkService {
 
-  constructor (@InjectModel(WorkDto.name) private workModel: Model<WorkDto>) {}
+  constructor (@InjectModel(Work.name) private workModel: Model<WorkDto>) {}
 
   /**
    * 创建业务线
    * @param row 用户数据
    * @requires _id 业务线id
    */
-  async create(row: WorkDto) {
+  async create(row: Work) {
     try {
       const afterCreateWorkLine = await new this.workModel(row).save()
       return afterCreateWorkLine._id
     } catch (error) {
-      console.log('error')
-      throw new HttpException(null, 500)
+      console.error(error)
+      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
     }
   }
 
   /**
-   * 查询所有用户
+   * 
    */
-  async queryAllUser() {
-    const users = await this.workModel.find().exec()
-    console.log(users)
-    return users
+  async findUserWorkList(id: UserDocument['_id']) {
+    try {
+      const works = this.workModel.find({
+        user: id
+      }).exec()
+      return works
+    } catch (error) {
+      console.error(error)
+      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
+    }
   }
 }
