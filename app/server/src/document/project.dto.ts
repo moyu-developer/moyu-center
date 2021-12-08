@@ -7,6 +7,8 @@ import { WorkDto } from '.';
 
 @Schema({
   collection: 'project',
+  timestamps: true,
+  id: true
 })
 export class ProjectDto extends Document {
   @Prop({ required: true })

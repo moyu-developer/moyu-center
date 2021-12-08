@@ -7,6 +7,8 @@ import { UserDto, UserModel } from '.';
 
 @Schema({
   collection: 'work',
+  timestamps: true,
+  id: true
 })
 export class WorkDto extends Document {
 
