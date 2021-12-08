@@ -12,6 +12,9 @@ const swaggerOptions = new DocumentBuilder()
 
 export default function registerAllMiddleware (app: INestApplication) {
 
+  /** 关闭cores， 解决跨域 */
+  app.enableCors();
+
   /** 全局使用管道 */
   app.useGlobalPipes(new ValidationPipe())
 
