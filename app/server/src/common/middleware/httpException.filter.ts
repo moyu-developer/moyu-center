@@ -4,6 +4,7 @@ import { codeMessage, HttpCode } from '../enums/http'
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
+
     /** 获取请求上下文 */
     const context = host.switchToHttp()
 
@@ -13,13 +14,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
     /** http状态 */
     let httpStatus = HttpCode.SERVER_ERROR
     if (exception.getStatus) {
-      exception.getStatus()
+      httpStatus = exception.getStatus()
     }
 
     /** 获取当前的message */
     const message = exception.message || codeMessage[httpStatus] || '服务器繁忙，请稍后再试'
-
-    console.log(httpStatus)
 
     response.status(200);
     response.send({
