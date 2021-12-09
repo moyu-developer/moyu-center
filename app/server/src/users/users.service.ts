@@ -1,10 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto } from './dto/create-user-dto';
+import { CreateUserDto, UpdateUserDto } from 'src/document';
 import { User, UserDocument } from './schemas/user.schema';
 import { makeSalt, encryptPassword } from 'src/common/utils/cryptogram';
-import { UpdateUserDto } from './dto/update-user-dto';
 
 @Injectable()
 export class UsersService {
@@ -29,8 +28,7 @@ export class UsersService {
   }
 
   async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
-    try {
-      const updateUserInfo = { ...updateUserDto, salt: makeSalt() };
+    const updateUserInfo = { ...updateUserDto, salt: makeSalt() };
       if (updateUserDto.password) {
         updateUserInfo.password = encryptPassword(
           updateUserDto.password,
@@ -41,10 +39,9 @@ export class UsersService {
         { _id: id },
         updateUserInfo,
       );
+      console.log(user)
       if (user) return user._id;
-    } catch (error) {
       throw new BadRequestException(`用户不存在`);
-    }
   }
 
   async findAll(): Promise<User[]> {
