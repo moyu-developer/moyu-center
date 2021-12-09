@@ -8,7 +8,7 @@ import { jwtConstants } from './constants';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'jwt', publicKey: '1111' }),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '8h' }, // token 过期时效

@@ -23,6 +23,14 @@ export class WorkController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '当前用户所属业务线' })
   list(@GetRequestUser() user: ReturnUserTypes) {
-    return this.workService.findUserWorkList(user.userId)
+    return this.workService.findUserWorkListByUserId(user.userId)
+  }
+
+
+  @Get('v1/delete/:id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '通过id删除当前业务线' })
+  delete(@Param('id') id: string) {
+    return this.workService.findUserWorkListByUserId(id)
   }
 }

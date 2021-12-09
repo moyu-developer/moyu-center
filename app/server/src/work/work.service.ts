@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel,  } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { HttpCode } from 'src/common/enums/http';
 import { GlobalServiceError } from 'src/common/utils';
@@ -10,6 +10,21 @@ import { UserDocument } from 'src/users/schemas/user.schema';
 export class WorkService {
 
   constructor (@InjectModel(Work.name) private workModel: Model<WorkDto>) {}
+
+
+  /** 通过业务线id将其删除 */
+  async deleteWorkLineById(id: WorkDto['_id']) {
+    try {
+      const isDelete = await this.workModel.updateOne({
+        _id: id
+      }, {
+        isDelete: true
+      }).exec()
+    } catch (error) {
+      console.error(error)
+      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
+    }
+  }
 
   /**
    * 创建业务线
@@ -26,10 +41,8 @@ export class WorkService {
     }
   }
 
-  /**
-   * 
-   */
-  async findUserWorkList(id: UserDocument['_id']) {
+  /** 查询当前用户下所有业务线归属 */
+  async findUserWorkListByUserId(id: UserDocument['_id']) {
     try {
       const works = this.workModel.find({
         user: id
