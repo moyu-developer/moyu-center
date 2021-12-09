@@ -13,7 +13,10 @@ export interface ReturnUserTypes {
  * @example
  * @GetRequestUser() user: ReturnUserTypes
  */
-export const GetRequestUser = createParamDecorator((_, ctx: ExecutionContext): ReturnUserTypes | void => {
+export const GetRequestUser = createParamDecorator((data: keyof ReturnUserTypes , ctx: ExecutionContext) => {
   const req = ctx.switchToHttp().getRequest()
+  if (data) {
+    return req.user['data']
+  }
   return req.user
 })
