@@ -6,9 +6,6 @@ import { AppService } from './app.service';
 
 import { AuthModule } from './logical/auth/auth.module';
 
-import { UserController } from './user/user.controller';
-import { UserModule } from './user/user.module';
-
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { WorkModule } from './work/work.module';
@@ -19,12 +16,11 @@ import { WorkModule } from './work/work.module';
       envFilePath: ['.development.env'],
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
-    UserModule,
     UsersModule,
     AuthModule,
     WorkModule,
   ],
-  controllers: [AppController, UserController, UsersController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}
