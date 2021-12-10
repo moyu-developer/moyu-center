@@ -1,0 +1,12 @@
+{
+  "name": "@moyu/request",
+  "version": "1.0.0",
+  "description": "moyu-center 请求公共模块",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
