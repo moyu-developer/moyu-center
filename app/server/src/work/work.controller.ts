@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query, UsePipes, Put } from '@nestjs/common';
 import { WorkService } from './work.service';
 import { Work, WorkDto } from 'src/document'
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { GetRequestUser, ReturnUserTypes } from 'src/common/utils/decorator';
+import { UpdateWorkDto } from './dto/update.dto';
 
 @Controller('work')
 @ApiTags('业务线')
@@ -14,23 +15,28 @@ export class WorkController {
   @Post('v1/create')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '创建一条业务线' })
-  create(@Body() createWorkDto: Work, @GetRequestUser() user: ReturnUserTypes) {
+  async create(@Body() createWorkDto: Work, @GetRequestUser() user: ReturnUserTypes) {
     createWorkDto.user = user.userId
-    return this.workService.create(createWorkDto);
+    return await this.workService.create(createWorkDto);
   }
 
   @Get('v1/list')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '当前用户所属业务线' })
-  list(@GetRequestUser() user: ReturnUserTypes) {
-    return this.workService.findUserWorkListByUserId(user.userId)
+  async list(@GetRequestUser() user: ReturnUserTypes) {
+    return await this.workService.findUserWorkListByUserId(user.userId)
   }
-
 
   @Get('v1/delete/:id')
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '通过id删除当前业务线' })
-  delete(@Param('id') id: string) {
-    return this.workService.findUserWorkListByUserId(id)
+  async delete(@Param('id') id: string) {
+    return await this.workService.findUserWorkListByUserId(id)
+  }
+  @Put('v1/change/:id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '通过id修改当前业务线信息' })
+  async update(@Param('id') workId: string, @Body() payload: UpdateWorkDto) {
+    return await this.workService.updateUserWorkListByUserId(workId, payload)
   }
 }

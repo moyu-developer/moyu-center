@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongoSchema } from 'mongoose';
-import { IsString, IsNotEmpty, Length, MaxLength } from 'class-validator';
+import { IsString, IsNotEmpty, Length, MaxLength, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/users/schemas/user.schema'
+import { User, UserDocument } from 'src/users/schemas/user.schema'
 
 export type WorkDto = Work & Document
 @Schema({
@@ -12,6 +12,7 @@ export type WorkDto = Work & Document
 export class Work {
 
   @Prop({ required: true })
+  @IsOptional()
   @IsString({ message: '业务线名称只能为字符串' })
   @IsNotEmpty({ message: '业务线名称不能为空' })
   @MaxLength(10, { message: '业务线名称不能超过十个字符' })
@@ -25,13 +26,13 @@ export class Work {
   @ApiProperty({ description: '业务线简介' })
   description: string;
 
-  @Prop({ type: MongoSchema.Types.ObjectId, ref: 'User', required: true })
-  user: User
+  @Prop({ type: MongoSchema.Types.ObjectId, ref: 'UserDocument', required: true })
+  user: UserDocument['_id']
 
   @Prop({ select: false, default: false })
   isDelete: boolean
 
-  constructor(partial: Partial<User>) {
+  constructor(partial: Partial<Work>) {
     Object.assign(this, partial);
   }
 }
