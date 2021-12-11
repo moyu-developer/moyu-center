@@ -24,3 +24,6 @@ pnpm-lock.yaml
 # npm
 
 package-lock.json
+
+# config
+**/moyu.config.js
