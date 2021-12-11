@@ -1,12 +1,12 @@
 
 import { init, RematchDispatch, RematchRootState } from '@rematch/core'
 import rematchRuntimeStatus, { ExtraModelsFromLoading } from "@rematch/loading"
-import { models } from './connect'
+import { globalModels } from './connect'
 import type { RootModel } from './connect'
 
 
 const store = init<RootModel, ExtraModelsFromLoading<RootModel>>({
-  models,
+  models: globalModels,
   plugins: [rematchRuntimeStatus()]
 });
 export type Store = typeof store;
