@@ -1,21 +1,47 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import type { FC } from "react";
-import { useLocation, Navigate } from 'react-router-dom';
-import routes from 'config/baseRouter'
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { Dispatch } from 'src/model';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../model/index';
 
 export default ((props) => {
 
   const location = useLocation()
 
-  const hasLogin = useMemo(() => {
-    return localStorage.getItem('access_token') ? true : false
-  }, [location])
+  const navigate = useNavigate()
 
-  if (hasLogin) {
-    return props.children  
-  }
+  const dispatch: Dispatch = useDispatch()
 
-  return <Navigate to="/login" state={{ from: location }} />;
+  /** token是否存在 */
+  const hasLogin = useSelector((state: RootState) => state.common.token ? true : false)
+
+  const user = useSelector((state: RootState) => state.common.user)
+
+  useEffect(() => {
+    console.log(user)
+    if (!user && hasLogin) {
+      dispatch.common.getUserInfo()
+    }
+  }, [user, hasLogin])
+
+  useEffect(() => {
+    dispatch.common.setNavigateInstance(navigate)
+  }, [])
+
+  const LoginResult =  useMemo(() => {
+    if (!hasLogin) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    if (location.pathname === '/login') {
+      return <Navigate to="/" replace />;
+    }
+
+    return props.children
+  }, [hasLogin])
+
+  return LoginResult
 
   
 }) as FC

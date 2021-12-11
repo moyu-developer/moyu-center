@@ -1,13 +1,15 @@
-import { useMemo, Suspense } from "react";
+import { useMemo, Suspense, useEffect } from 'react';
 import baseRouter from "config/baseRouter";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from "src/components/Auth/Require";
 
-import type { ReactElement } from "react";
+import type { ReactElement, Key } from "react";
 
 export interface Router<T = Record<string, any>> {
   path: string;
   name: string;
+  key: Key;
+  index?: boolean,
   meta?: {
     auth?: string[];
   } & T;
@@ -28,8 +30,9 @@ function createRouteNode(routes: Router[]) {
       );
     return (
       <Route
-        key={route.path}
-        path={route.path}
+        key={route.key}
+        path={route.index ? undefined : route.path}
+        index={route.index}
         element={<Suspense fallback={<div>....</div>}>{element}</Suspense>}
       >
         {createRouteNode(
