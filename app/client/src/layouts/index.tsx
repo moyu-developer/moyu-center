@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link,  } from 'react-router-dom'
-import { Avatar} from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import logo from '../icons/logo.svg'
+import AvatarBar from './AvatarBar'
 
 import type { ProSettings } from "@ant-design/pro-layout";
 
@@ -56,7 +55,7 @@ export default () => {
         )}
         rightContentRender={() => (
           <div>
-            <Avatar shape="square" size="small" src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
+            <AvatarBar/>
           </div>
         )}
         {...settings}
