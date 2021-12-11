@@ -1,30 +1,31 @@
-import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios'
+
+export * from 'axios'
+
+export * from './options'
 
 export enum NextEntry {
   DEFAULT,
   CUSTOM
 }
 
-export interface ReturnInterceptorsMiddleware<R = undefined> {
-  entry: NextEntry,
-  res?: R
+export interface GotResult <T = unknown> {
+  code: number,
+  data: T,
+  message: string
 }
 
-export type AxiosRequestInterceptorsMiddleware = <R = undefined>(res) => Promise<ReturnInterceptorsMiddleware<R>>
-
-export type AxiosResponseInterceptorsMiddleware = <R = undefined>(res) => Promise<ReturnInterceptorsMiddleware<R>>
-
-export interface AxiosInitialOptions {
-  request: AxiosRequestInterceptorsMiddleware,
-  response: AxiosResponseInterceptorsMiddleware,
-  disabledInterceptors: Array<'request' | 'response'>
+export interface GotRequestOptions {
+  request?: (request: AxiosRequestConfig) => AxiosRequestConfig,
+  response?: (response: AxiosResponse) => any,
+  handleError: <E = any>(error: E) => void
 }
 
-class Axios {
+class GotAxios {
 
-  private axios: AxiosInstance
+  private axios!: AxiosInstance
 
-  constructor (private readonly options: AxiosRequestConfig, private readonly config?: AxiosInitialOptions) {
+  constructor (private readonly options: AxiosRequestConfig, private readonly handle: GotRequestOptions) {
     if (options) {
       this.init()
     } else {
@@ -34,30 +35,47 @@ class Axios {
 
   private init () {
     this.axios = axios.create({
+      ...this.options,
+      baseURL: this.options.baseURL,
       /** @name 超时时间3s */
-      timeout: 3000 | this.options.timeout,
-      headers: this.options.headers || {
-        'Content-Type': 'application/json'
+      timeout: this.options.timeout || 3000,
+      headers: {
+        ...(this.options.headers || {})
       }
     })
+    
+    /** 创建过滤器 */
+    this.createInterceptor()
   }
 
   private createInterceptor () {
-    if (this.config.disabledInterceptors.indexOf('request') === -1) {
 
-      this.axios.interceptors.request.use(async(request) => {
+    this.axios.interceptors.request.use((request) => {
+      console.log(`正在发送请求 --> ${request.url}`)
+      if (this.handle.request) {
+        const config = this.handle.request(request)
+        return config ? config : request
+      }
+      return request
+    })
 
+    this.axios.interceptors.response.use((response) => {
+      if (this.handle.response) {
+        try {
+          const res = this.handle.response(response)
+          return res || response.data
+        } catch (error) {
+          this.handle.handleError(response)
+        }
         
-      })
-    }
-
-
-    if (this.config.disabledInterceptors.indexOf('response') === -1) {
-
-      this.axios.interceptors.response.use(() => {
-
-      })
-    }
+      } else {
+        if (/^(2|3)\d{2}$/.test(String(response.status))) {
+          return response.data
+        } else {
+          return Promise.reject(response)
+        }
+      }
+    }, this.handle?.handleError)
   }
 
 
@@ -71,4 +89,4 @@ class Axios {
   
 }
 
-export default Axios
+export default GotAxios
