@@ -27,3 +27,7 @@ package-lock.json
 
 # config
 **/moyu.config.js
+
+# env
+**/.development.env
+**/.production.env
