@@ -11,10 +11,40 @@ import Banner from "./Banner";
 import logo from "src/icons/logo.svg";
 import styles from "./index.module.less";
 
+import './model'
+import { useDispatch } from "react-redux";
+import { Dispatch } from "src/model";
+import { PostApiUsersLoginRequestTypes } from 'src/common/service/postApiUsersLogin/index';
+import { useNavigate } from 'react-router-dom';
+
 type LoginType = "register" | "account";
 
+/** 登录表单类型 */
+interface LoginViewsForm {
+  user: PostApiUsersLoginRequestTypes,
+  autoLogin: boolean
+}
+
 export default () => {
+  /** @name 表单类型 */
   const [loginType, setLoginType] = useState<LoginType>("account");
+
+  const dispatch: Dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  /**
+   * 
+   * @param form 登录信息
+   * @returns 
+   */
+  const handleUserLogin = async (form: LoginViewsForm) => {
+    await dispatch.login.loginByName(form)
+    navigate('/', {
+      replace: true
+    })
+  }
+
   return (
     <div className={styles.loginWrapper}>
       <Row align="middle" justify="center">
@@ -23,12 +53,14 @@ export default () => {
         </Col>
         <Col sm={14} xl={16}>
           <div className={styles.loginFormContainer}>
-            <LoginForm
+            <LoginForm<LoginViewsForm>
+              onFinish={ handleUserLogin }
               logo={logo}
+              
               title="Moyu Center"
               subTitle="一个好看有趣的接口管理中心平台！"
               actions={
-                <Button type="text" block>
+                <Button type="link" block>
                   注册账号
                 </Button>
               }
@@ -43,7 +75,7 @@ export default () => {
               {loginType === "account" && (
                 <>
                   <ProFormText
-                    name="username"
+                    name={['user', 'username']}
                     fieldProps={{
                       size: "large",
                       prefix: <UserOutlined className={"prefixIcon"} />,
@@ -57,7 +89,7 @@ export default () => {
                     ]}
                   />
                   <ProFormText.Password
-                    name="password"
+                    name={['user', 'password']}
                     fieldProps={{
                       size: "large",
                       prefix: <LockOutlined className={"prefixIcon"} />,
