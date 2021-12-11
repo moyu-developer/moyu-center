@@ -13,10 +13,11 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/document';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { ValidationPipe } from 'src/common/pipe/validation';
 import { AuthService } from 'src/logical/auth/auth.service';
+import { GetRequestUser } from '../common/utils/decorator';
 
 @ApiBearerAuth()
 @Controller('users')
@@ -74,5 +75,12 @@ export class UsersController {
   @ApiOperation({ summary: '根据ID查询用户' })
   async findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Get('/v1/info')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: '获取用户信息' })
+  async getUserInfo(@GetRequestUser() user: User): Promise<User> {
+    return user
   }
 }
