@@ -1,15 +1,24 @@
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions, SwaggerCustomOptions } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common'
-import { HttpExceptionFilter } from '../common/middleware/httpException.filter'
-import { TransformResponseInterceptor } from '../common/middleware/transformResponse.interceptor'
+import { HttpExceptionFilter } from 'src/common/middleware/httpException.filter'
+import { TransformResponseInterceptor } from 'src/common/middleware/transformResponse.interceptor'
 import { ValidationPipe } from 'src/common/pipe/validation';
 
-const swaggerOptions = new DocumentBuilder()
+const swaggerConfig = new DocumentBuilder()
   .setTitle('Moyu Center API')
   .setDescription('🦑moyu center 接口文档中心，用于站点接口调试以及OpenAPI展示。（仅限内部使用）')
   .setVersion('1.0')
   .addBearerAuth()
+  .setBasePath('http://localhost:8301/api')
   .build();
+
+const swaggerOptions: SwaggerCustomOptions =  {
+  swaggerOptions: {
+    ignoreGlobalPrefix: true,
+    persistAuthorization: true,
+  },
+  customSiteTitle: '🦑moyu center 接口文档中心',
+}
 
 export default function registerAllMiddleware (app: INestApplication) {
 
@@ -29,6 +38,6 @@ export default function registerAllMiddleware (app: INestApplication) {
   app.setGlobalPrefix('api')
   
   /** 创建swagger文档 */
-  const docs = SwaggerModule.createDocument(app, swaggerOptions)
+  const docs = SwaggerModule.createDocument(app, swaggerConfig)
   SwaggerModule.setup('docs.html', app, docs)
 }
