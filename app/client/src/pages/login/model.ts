@@ -27,6 +27,7 @@ const loginModel = createModel<RootModel>()({
           localStorage.setItem('access_token', data.token)
         }
         message.success('登录成功')
+        await dispatch.common.getUserInfo()
       } catch (error) {
         throw error
       }
