@@ -1,6 +1,5 @@
 import { Button, Tag, Space } from "antd";
 import ProList from "@ant-design/pro-list";
-import styles from "../index.module.less";
 
 const dataSource = [
   {
@@ -30,7 +29,7 @@ const dataSource = [
 ];
 
 export default () => (
-  <div className={styles.menuCard}>
+  <div className="project-view__content__menu">
     <ProList<any>
       size="small"
       toolBarRender={() => {
