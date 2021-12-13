@@ -1,6 +1,6 @@
 import { createElement, lazy } from 'react'
-import { SmileOutlined } from '@ant-design/icons';
-import Layout from '../src/layouts'
+import { SmileOutlined, FundOutlined, ClusterOutlined, CodepenOutlined } from '@ant-design/icons';
+import Layout from 'src/layouts'
 
 import type { Router } from 'src/router/RouterViews'
 
@@ -22,7 +22,7 @@ export default [
         name: '首页',
         index: true,
         component: createElement(lazy(() => import('src/pages/dashboard'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(FundOutlined),
       },
       {
         path: '/project',
@@ -31,14 +31,14 @@ export default [
           auth: [0, 1],
         },
         component: createElement(lazy(() => import('../src/pages/project'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(ClusterOutlined),
         
       },
       {
         path: '/namespace',
         name: '空间',
         component: createElement(lazy(() => import('../src/pages/namespace'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(CodepenOutlined),
         
       },
     ],
