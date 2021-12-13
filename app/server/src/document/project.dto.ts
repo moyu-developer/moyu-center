@@ -8,7 +8,7 @@ import { WorkDto } from '.';
 @Schema({
   collection: 'project',
   timestamps: true,
-  id: true
+  id: true,
 })
 export class ProjectDto extends Document {
   @Prop({ required: true })
@@ -29,12 +29,12 @@ export class ProjectDto extends Document {
   @Prop()
   @IsString()
   @ApiProperty({ description: '前缀地址' })
-  readonly prefix: string
+  readonly prefix: string;
 
   @Prop()
   @IsString()
   @ApiProperty({ description: 'Swagger地址' })
-  readonly swagger: string
+  readonly swagger: string;
 
   @Prop({ default: '什么都没有的项目介绍' })
   @IsString()
@@ -46,8 +46,6 @@ export class ProjectDto extends Document {
   @IsString()
   @ApiProperty({ description: '关联关系组 - 一对一关系' })
   readonly work: WorkDto;
-
-  
 
   @Prop({ required: true, default: false })
   @Exclude()

@@ -81,6 +81,6 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: '获取用户信息' })
   async getUserInfo(@GetRequestUser() user: User): Promise<User> {
-    return user
+    return user;
   }
 }

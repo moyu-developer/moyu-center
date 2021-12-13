@@ -15,7 +15,7 @@ export class AuthService {
   async validateUser(username: string, password: string): Promise<any> {
     console.log('JWT验证 - Step 2: 校验用户信息');
     const user = await this.usersService.findByUserName(username);
-    console.log(user)
+    console.log(user);
     if (user) {
       const hashedPassword = user.password;
       const salt = user.salt;
@@ -48,12 +48,12 @@ export class AuthService {
       username: user.username,
       userId: user._id,
       mobile: user.mobile,
-      email: user.email
+      email: user.email,
     };
     console.log('JWT验证 - Step 3: 处理 jwt 签证');
     try {
       const token = this.jwtService.sign(payload);
-      return { token }
+      return { token };
     } catch (error) {
       throw new BadRequestException(`账号或密码不正确`);
     }

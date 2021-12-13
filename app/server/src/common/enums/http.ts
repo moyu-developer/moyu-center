@@ -16,7 +16,6 @@ export const codeMessage: Record<number, string> = {
   504: '网关超时。',
 };
 
-
 export enum HttpCode {
   /** @name 请求成功 */
   SUCCESS = 200,

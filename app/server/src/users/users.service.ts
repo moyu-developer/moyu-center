@@ -29,19 +29,19 @@ export class UsersService {
 
   async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
     const updateUserInfo = { ...updateUserDto, salt: makeSalt() };
-      if (updateUserDto.password) {
-        updateUserInfo.password = encryptPassword(
-          updateUserDto.password,
-          updateUserInfo.salt,
-        ); // 加密密码
-      }
-      const user = await this.userModel.findOneAndUpdate(
-        { _id: id },
-        updateUserInfo,
-      );
-      console.log(user)
-      if (user) return user._id;
-      throw new BadRequestException(`用户不存在`);
+    if (updateUserDto.password) {
+      updateUserInfo.password = encryptPassword(
+        updateUserDto.password,
+        updateUserInfo.salt,
+      ); // 加密密码
+    }
+    const user = await this.userModel.findOneAndUpdate(
+      { _id: id },
+      updateUserInfo,
+    );
+    console.log(user);
+    if (user) return user._id;
+    throw new BadRequestException(`用户不存在`);
   }
 
   async findAll(): Promise<User[]> {

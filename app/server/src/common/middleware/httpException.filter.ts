@@ -1,30 +1,36 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, BadRequestException } from '@nestjs/common';
-import { codeMessage, HttpCode } from '../enums/http'
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  BadRequestException,
+} from '@nestjs/common';
+import { codeMessage, HttpCode } from '../enums/http';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
-
     /** 获取请求上下文 */
-    const context = host.switchToHttp()
+    const context = host.switchToHttp();
 
     /** 获取请求响应信息 */
-    const response = context.getResponse()
+    const response = context.getResponse();
 
     /** http状态 */
-    let httpStatus = HttpCode.SERVER_ERROR
+    let httpStatus = HttpCode.SERVER_ERROR;
     if (exception.getStatus) {
-      httpStatus = exception.getStatus()
+      httpStatus = exception.getStatus();
     }
 
     /** 获取当前的message */
-    const message = exception.message || codeMessage[httpStatus] || '服务器繁忙，请稍后再试'
+    const message =
+      exception.message || codeMessage[httpStatus] || '服务器繁忙，请稍后再试';
 
     response.status(200);
     response.send({
       data: null,
       message,
-      code: httpStatus
-    })
+      code: httpStatus,
+    });
   }
 }
