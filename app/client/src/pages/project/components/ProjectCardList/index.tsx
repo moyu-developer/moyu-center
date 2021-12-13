@@ -62,7 +62,7 @@ export default () => {
               hoverable
               bodyStyle={{ paddingBottom: 20 }}
               actions={[
-                <Tooltip key="download" title="下载">
+                <Tooltip key="download" title="去设置">
                   <SettingOutlined />
                 </Tooltip>,
                 <Tooltip title="编辑" key="edit">

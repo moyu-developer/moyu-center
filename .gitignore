@@ -2,6 +2,8 @@
 node_modules
 **/node_modules
 
+.vscode
+
 # macos
 .DS_Store
 
@@ -15,6 +17,7 @@ dist-ssr
 
 # local env
 *.local
+
 
 # pnpm package npmrc
 pnpm-lock.yaml
@@ -31,5 +34,5 @@ package-lock.json
 # env
 **/.development.env
 **/.production.env
-
-.vscode
+**/.env.development
+**/.env.production

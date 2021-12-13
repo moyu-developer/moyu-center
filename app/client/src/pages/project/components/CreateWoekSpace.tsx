@@ -7,7 +7,6 @@ import ProForm, {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-form";
-import { SendOutlined } from "@ant-design/icons";
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {

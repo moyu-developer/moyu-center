@@ -3,12 +3,11 @@ import baseRouter from "config/baseRouter";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from "src/components/Auth/Require";
 
-import type { ReactElement, Key } from "react";
+import type { ReactElement } from "react";
 
 export interface Router<T = Record<string, any>> {
   path: string;
   name: string;
-  key: Key;
   index?: boolean,
   meta?: {
     auth?: string[];
@@ -30,7 +29,7 @@ function createRouteNode(routes: Router[]) {
       );
     return (
       <Route
-        key={route.key}
+        key={route.path}
         path={route.index ? undefined : route.path}
         index={route.index}
         element={<Suspense fallback={<div>....</div>}>{element}</Suspense>}

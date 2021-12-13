@@ -1,6 +1,6 @@
 import { createElement, lazy } from 'react'
-import { SmileOutlined } from '@ant-design/icons';
-import Layout from '../src/layouts'
+import { SmileOutlined, FundOutlined, ClusterOutlined, CodepenOutlined } from '@ant-design/icons';
+import Layout from 'src/layouts'
 
 import type { Router } from 'src/router/RouterViews'
 
@@ -14,7 +14,6 @@ export default [
   {
     path: '/',
     name: '首页',
-    key: 'layout',
     icon: createElement(SmileOutlined),
     component: createElement(Layout),
     routes: [
@@ -22,39 +21,34 @@ export default [
         path: '/',
         name: '首页',
         index: true,
-        key: 'dashboard',
         component: createElement(lazy(() => import('src/pages/dashboard'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(FundOutlined),
       },
       {
         path: '/project',
         name: '项目管理',
-        key: 'project',
         meta: {
           auth: [0, 1],
         },
         component: createElement(lazy(() => import('../src/pages/project'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(ClusterOutlined),
         
       },
       {
         path: '/namespace',
         name: '空间',
-        key: 'namespace',
         component: createElement(lazy(() => import('../src/pages/namespace'))),
-        icon: createElement(SmileOutlined),
+        icon: createElement(CodepenOutlined),
         
       },
     ],
   },
   {
     path: '/login',
-    key: 'login',
     component: createElement(lazy(() => import('../src/pages/login')))
   },
   {
     path: '*',
-    key: 'not-found',
     component: createElement(lazy(() => import('../src/pages/no-found')))
   }
 ] as Router[]
