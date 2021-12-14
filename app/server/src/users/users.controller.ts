@@ -13,11 +13,12 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/document';
-import { User, UserDocument } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { ValidationPipe } from 'src/common/pipe/validation';
 import { AuthService } from 'src/logical/auth/auth.service';
 import { GetRequestUser } from '../common/utils/decorator';
+import { QueryResult } from 'src/common/helper/dbHelper';
 
 @ApiBearerAuth()
 @Controller('users')
@@ -30,9 +31,9 @@ export class UsersController {
 
   @Post('register')
   @UsePipes(new ValidationPipe())
-  @ApiOperation({ summary: '创建用户' })
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto);
+  @ApiOperation({ summary: '注册用户' })
+  async register(@Body() createUserDto: CreateUserDto) {
+    return await this.usersService.register(createUserDto);
   }
 
   @Post('login')
@@ -64,10 +65,11 @@ export class UsersController {
 
   @Get('list')
   @UseGuards(AuthGuard('jwt'))
+  @UsePipes(new ValidationPipe())
   @ApiOperation({ summary: '查询用户列表' })
-  async findAll(@Query() params, @Req() req: any): Promise<User[]> {
+  async findAll(@Query() params, @Req() req: any): QueryResult<User> {
     console.log(req.user);
-    return this.usersService.findAll();
+    return this.usersService.findAll(params);
   }
 
   @Get(':id')

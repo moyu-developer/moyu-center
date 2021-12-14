@@ -1,41 +1,36 @@
-// import { Model } from 'mongoose';
-export interface Result<T> {
-  records: T;
-  pageCount: number;
+export type QueryResult<T> = Promise<Result<T>>;
+
+interface Result<T> {
+  list: T[];
+  current: number;
+  total: number;
 }
 
-export const pageQuery = (
-  page = 1,
-  pageSize = 20,
-  Model,
-  populate,
-  queryParams,
-  sortParams,
-) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const start = (page - 1) * pageSize;
-      const $page = {
-        pageNumber: page,
-        results: 0,
-        pageCount: 0,
-      };
+interface Params {
+  current?: number;
+  pageSize?: number;
+  projection?: Record<string, unknown>; // 筛选返回条件
+  [params: string]: any; // 剩余查询条件
+}
 
-      const count = await Model.count(queryParams);
-      const records = await Model.find(queryParams)
-        .skip(start)
-        .limit(pageSize)
-        .populate(populate)
-        .sort(sortParams);
-      $page.pageCount = (count - 1) / pageSize + 1;
-      $page.results = records;
+/**
+ * 简单通用分页方法
+ * @param model 对应的模型实例
+ * @param params 参数
+ * @returns
+ */
+export const pageQuery = async (model, params: Params): QueryResult<any> => {
+  const { current = 1, pageSize = 20, projection = {}, ...ret } = params;
+  const list = await model
+    .find({ ...ret }, projection)
+    .skip(current - 1 >= 0 ? current - 1 : 0)
+    .limit(+pageSize);
 
-      resolve({
-        records: $page.results,
-        pageCount: $page.pageCount,
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
+  const total = await model.find().count();
+
+  return {
+    list,
+    current: +current,
+    total,
+  };
 };

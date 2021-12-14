@@ -4,12 +4,13 @@ import { Model } from 'mongoose';
 import { CreateUserDto, UpdateUserDto } from 'src/document';
 import { User, UserDocument } from './schemas/user.schema';
 import { makeSalt, encryptPassword } from 'src/common/utils/cryptogram';
+import { pageQuery, QueryResult } from 'src/common/helper/dbHelper';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async register(createUserDto: CreateUserDto): Promise<User> {
     const { username, password, email, mobile } = createUserDto;
     const user = await this.userModel.findOne({ username });
     if (!user) {
@@ -44,8 +45,13 @@ export class UsersService {
     throw new BadRequestException(`用户不存在`);
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find({}, { password: 0, salt: 0 }).exec();
+  async findAll(params): QueryResult<User> {
+    const users = await pageQuery(this.userModel, {
+      ...params,
+      projection: { password: 0, salt: 0 },
+    });
+    console.log(users);
+    return users;
   }
 
   async findOne(id: string): Promise<User> {
