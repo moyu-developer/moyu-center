@@ -18,16 +18,16 @@ export class UserDto extends Document {
   @IsString()
   @IsNotEmpty({ message: '用户密码不能为空' })
   @ApiProperty({ description: '用户密码', required: true })
-  readonly password: string
+  readonly password: string;
 
   @Prop({ default: '' })
   @IsString()
   @ApiProperty({ description: '用户头像' })
-  readonly avatar: string
+  readonly avatar: string;
 
   @Prop({ required: true, default: false })
   @Exclude()
-  isDelete: boolean
+  isDelete: boolean;
 }
 
 export const UserModel = SchemaFactory.createForClass(UserDto);
