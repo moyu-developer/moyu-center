@@ -5,7 +5,7 @@ import AvatarBar from './AvatarBar'
 
 import type { ProSettings } from "@ant-design/pro-layout";
 
-const BASE_PATH: string = '/project'
+const BASE_PATH: string = '/'
 
 import ProLayout, {
   SettingDrawer,
