@@ -1,8 +1,7 @@
 import { createElement, lazy } from 'react'
 import { SmileOutlined, FundOutlined, ClusterOutlined, CodepenOutlined } from '@ant-design/icons';
 import Layout from 'src/layouts'
-
-import type { Router } from 'src/router/RouterViews'
+import { MenuDataItem } from '@ant-design/pro-layout';
 
 /**
  * @FIXME 2021年12月11日
@@ -32,10 +31,20 @@ export default [
         },
         component: createElement(lazy(() => import('../src/pages/project'))),
         icon: createElement(ClusterOutlined),
-        
+      },
+      {
+        path: '/project/detail',
+        name: '项目管理详情',
+        hideInMenu: true,
+        meta: {
+          auth: [0, 1],
+        },
+        component: createElement(lazy(() => import('../src/pages/project-detail'))),
+        icon: createElement(ClusterOutlined),
       },
       {
         path: '/namespace',
+        hideInMenu: true,
         name: '空间',
         component: createElement(lazy(() => import('../src/pages/namespace'))),
         icon: createElement(CodepenOutlined),
@@ -51,4 +60,4 @@ export default [
     path: '*',
     component: createElement(lazy(() => import('../src/pages/no-found')))
   }
-] as Router[]
+] as MenuDataItem[]
