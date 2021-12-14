@@ -9,7 +9,7 @@ import OperatingLog from "./components/OperatingLog";
 import Setting from "./components/Setting";
 import ProCard from "@ant-design/pro-card";
 import { Badge, Menu } from "antd";
-import './index.less'
+import styles from './index.module.less'
 
 export default () => {
   const [selectContentKey, setSelectContentKey] = useState("list");
@@ -22,10 +22,10 @@ export default () => {
         <CreateProjectModal key="create-project" action={CREATE_ACTION.ADD} />,
       ]}
     >
-      <div className="project-view">
-        <ProCard split="vertical" className="project-view__content">
+      <div className={styles.project}>
+        <ProCard split="vertical" className={styles.projectBody}>
           <ProCard title="业务线归属" colSpan="250px">
-            <Menu className="project-view__content__menu" selectedKeys={['1']} direction="ltr">
+            <Menu className={styles.projectMenu} selectedKeys={['1']} direction="ltr">
               <Menu.Item key="1">
                 <Badge status="processing" text="Success" />
               </Menu.Item>
