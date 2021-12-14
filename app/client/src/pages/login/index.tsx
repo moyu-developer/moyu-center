@@ -8,14 +8,13 @@ import { UserOutlined, MobileOutlined, LockOutlined } from "@ant-design/icons";
 import { message, Row, Tabs, Col, Button } from "antd";
 import { useState } from "react";
 import Banner from "./Banner";
-import logo from "src/icons/logo.svg";
-import styles from "./index.module.less";
-
-import './model'
 import { useDispatch } from "react-redux";
 import { Dispatch } from "src/model";
 import { PostApiUsersLoginRequestTypes } from 'src/common/service/postApiUsersLogin/index';
 import { useNavigate } from 'react-router-dom';
+import logo from 'src/icons/logo.svg';
+import styles from  './index.module.less'
+import './model'
 
 type LoginType = "register" | "account";
 
@@ -46,19 +45,18 @@ export default () => {
   }
 
   return (
-    <div className={styles.loginWrapper}>
+    <div>
       <Row align="middle" justify="center">
         <Col sm={24} xl={8}>
           <Banner />
         </Col>
         <Col sm={14} xl={16}>
-          <div className={styles.loginFormContainer}>
+          <div className={styles.container}>
             <LoginForm<LoginViewsForm>
               onFinish={ handleUserLogin }
-              logo={logo}
-              
-              title="Moyu Center"
+              title="登录 Moyu Center"
               subTitle="一个好看有趣的接口管理中心平台！"
+              logo={logo}
               actions={
                 <Button type="link" block>
                   注册账号

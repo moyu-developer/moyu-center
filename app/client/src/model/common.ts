@@ -2,6 +2,8 @@ import { NavigateFunction } from "react-router-dom";
 import { createModel } from "@rematch/core";
 import { RootModel } from "./connect";
 import getApiUsersV1Info, { GetApiUsersV1InfoResponseTypes } from "src/common/service/getApiUsersV1Info";
+import { notification, Typography } from 'antd';
+import { createElement } from "react";
 interface CommonState {
   token: string,
   navigate?: NavigateFunction,
@@ -19,6 +21,10 @@ export default createModel<RootModel>()({
     async getUserInfo() {
       try {
         const { data } = await getApiUsersV1Info({})
+        notification.success({
+          message: `你好，${data.username} 欢迎回来👏`,
+          description: `开始体验Moyu🦑的新功能吧！更多Feature请查阅相关Break Change。`
+        })
         dispatch.common.setUserInfo(data)
       } catch (error) {
         throw error
