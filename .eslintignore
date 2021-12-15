@@ -38,4 +38,5 @@ package-lock.json
 **/.env.production
 
 # eslint
-.eslintcache
+
+.eslintignore
