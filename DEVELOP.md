@@ -1,8 +1,8 @@
 ## 项目组织
 
-整个项目是通过monorepo来管理一些应用的，先说下包的作用
+使用 `pnpm` 作为主要的包管理器，用于monorepo的代码组织协调，尽可能的对当前包的处理是干净的，用于处理
 
-- `@moyu/client`：客户端，通过React + Vite 做为核心构建的产物，足够快，相对好。
+- `@moyu/client`：客户端，通过React + Vite 作为核心构建的产物，足够快，相对好。
 
 - `@moyu/server`: 服务端，通过Nestjs + MongoDB 为基础的Node服务。
 
@@ -67,3 +67,18 @@ pnpm run build:server [options]
 }
 
 ```
+
+### commit logs
+
+> 较为明确的情况下，可以通过`action[(package)]`来注明当前的标识。
+
+- feat: 添加了某个特性时可以使用feature(feat)来注明commit
+
+- fix: 修复了某个事物时可以使用fix来注明commit，如果是isu
+
+- chore: 一些琐事，更新配置和一些小备注时可以使用chore来注明commit。
+
+- merge: 用于分支合并和代码合并，会产生一条新的merge commit。
+
+- `...其他`
+
