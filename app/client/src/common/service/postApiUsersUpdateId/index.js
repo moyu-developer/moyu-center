@@ -1,31 +1,19 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
 const postApiUsersUpdateId = (allParams, options) => {
-
-  
-  
-  
   const {
-    
-      
-        id,
-      
-    
-    
-    ...data
-  } = allParams
-  
+    id,
 
-  
+    ...data
+  } = allParams;
+
   return request({
     url: `/users/update/${id}`,
-    method: 'POST',
-    params: {
-      
-    },
-    data: data,
-    ...options
-  })
-}
+    method: "POST",
+    params: {},
+    data,
+    ...options,
+  });
+};
 
-export default postApiUsersUpdateId
+export default postApiUsersUpdateId;

@@ -3,13 +3,7 @@
 
 export interface GetApiWorkV1ListRequestTypes {}
 
-
-
-
-export default function getApiWorkV1List <
+export default function getApiWorkV1List<
   P = GetApiWorkV1ListRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

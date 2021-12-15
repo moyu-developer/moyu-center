@@ -12,13 +12,7 @@ export interface PostApiWorkV1CreateRequestTypes {
   description: string;
 }
 
-
-
-
-export default function postApiWorkV1Create <
+export default function postApiWorkV1Create<
   P = PostApiWorkV1CreateRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

@@ -3,7 +3,6 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  BadRequestException,
 } from '@nestjs/common';
 import { codeMessage, HttpCode } from '../enums/http';
 

@@ -1,40 +1,39 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "src/model/connect";
-import store from 'src/model'
-import { message } from 'antd';
-import postApiUsersLogin, { PostApiUsersLoginRequestTypes } from 'src/common/service/postApiUsersLogin';
-export type LoginModel = typeof loginModel
+import store from "src/model";
+import { message } from "antd";
+import postApiUsersLogin, {
+  PostApiUsersLoginRequestTypes,
+} from "src/common/service/postApiUsersLogin";
 
+export type LoginModel = typeof loginModel;
 
-interface LoginState {
-}
+interface LoginState {}
 
-const initializeCommonState: LoginState = {
-}
+const initializeCommonState: LoginState = {};
 
 const loginModel = createModel<RootModel>()({
   state: initializeCommonState,
   effects: (dispatch) => ({
     async loginByName(payload: {
-      user: PostApiUsersLoginRequestTypes,
-      autoLogin: boolean
+      user: PostApiUsersLoginRequestTypes;
+      autoLogin: boolean;
     }) {
       try {
-        const { data } = await postApiUsersLogin(payload.user)
+        const { data } = await postApiUsersLogin(payload.user);
 
-        dispatch.common.setToken(data.token)
+        dispatch.common.setToken(data.token);
         if (payload.autoLogin) {
-          localStorage.setItem('access_token', data.token)
+          localStorage.setItem("access_token", data.token);
         }
-        message.success('登录成功')
-        await dispatch.common.getUserInfo()
+        message.success("登录成功");
+        await dispatch.common.getUserInfo();
       } catch (error) {
-        throw error
+        throw error;
       }
-    }
+    },
   }),
-  reducers: {
-  },
-})
+  reducers: {},
+});
 
-store.addModel({ name: 'login', ...loginModel })
+store.addModel({ name: "login", ...loginModel });

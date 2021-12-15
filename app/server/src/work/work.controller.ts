@@ -3,23 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
-  Req,
-  Query,
-  UsePipes,
   Put,
 } from '@nestjs/common';
 import { WorkService } from './work.service';
-import { Work, WorkDto } from 'src/document';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiParam,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Work } from 'src/document';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { GetRequestUser, ReturnUserTypes } from 'src/common/utils/decorator';
 import { UpdateWorkDto } from './dto/update.dto';

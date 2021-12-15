@@ -11,7 +11,8 @@ import { Outlet } from "react-router-dom";
 
 /**
  * @FIXME 2021年12月11日
- * component组件使用非tsx文件名称，因此babel不会将其视为`React Component`，自然不会将其编译为`_jsx.createComponent`
+ * component组件使用非tsx文件名称，因此babel不会将其视为`React Component`，
+ * 自然不会将其编译为`_jsx.createComponent`
  * 因此在这里使用createElement主动创建组件。当然，你也可以将文件名改成baseRouter.tsx。
  */
 

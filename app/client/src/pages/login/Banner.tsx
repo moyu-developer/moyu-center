@@ -4,7 +4,7 @@ import docsLogo from "src/icons/login/docs.svg";
 import endLogo from "src/icons/login/end.svg";
 import progressLogo from "src/icons/login/progress.svg";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import styles from './index.module.less'
+import styles from "./index.module.less";
 
 const bannerList = [
   {
@@ -30,7 +30,7 @@ const bannerList = [
   },
 ];
 
-export default () => {
+export default function () {
   return (
     <Carousel
       dotPosition="bottom"
@@ -43,17 +43,13 @@ export default () => {
       {bannerList.map((item) => (
         <div className={styles.banner} key={item.title}>
           <Space direction="vertical" align="center">
-            <div className={styles.bannerText}>
-              {item.title}
-            </div>
+            <div className={styles.bannerText}>{item.title}</div>
 
-            <div className={styles.bannerSubText}>
-              {item.description}
-            </div>
+            <div className={styles.bannerSubText}>{item.description}</div>
           </Space>
           <img src={item.logo} className={styles.bannerImage} />
         </div>
       ))}
     </Carousel>
   );
-};
+}

@@ -1,21 +1,12 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
-const postApiWorkV1Create = (allParams, options) => {
-
-  
-  
-  
-
-  
-  return request({
-    url: `/work/v1/create`,
-    method: 'POST',
-    params: {
-      
-    },
+const postApiWorkV1Create = (allParams, options) =>
+  request({
+    url: "/work/v1/create",
+    method: "POST",
+    params: {},
     data: allParams,
-    ...options
-  })
-}
+    ...options,
+  });
 
-export default postApiWorkV1Create
+export default postApiWorkV1Create;

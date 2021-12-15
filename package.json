@@ -9,13 +9,21 @@
     "build:client": "pnpm run build --filter @moyu/client",
     "dev:server": "pnpm run start:dev --filter @moyu/server",
     "build:server": "pnpm run build --filter @moyu/server",
-    "preview": "pnpm run serve --filter @moyu/server"
+    "preview": "pnpm run serve --filter @moyu/server",
+    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx ./app",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx ./app"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@moyu/request": "workspace:^1.0.0",
-    "dayjs": "^1.10.7",
+    "dayjs": "^1.10.7"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^4.28.2",
+    "@umijs/fabric": "^2.8.1",
+    "eslint": "^7.30.0",
+    "eslint-plugin-react": "^7.27.1",
     "typescript": "^4.3.2"
   }
 }

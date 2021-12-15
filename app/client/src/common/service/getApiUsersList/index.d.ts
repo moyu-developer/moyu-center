@@ -3,13 +3,7 @@
 
 export interface GetApiUsersListRequestTypes {}
 
-
-
-
-export default function getApiUsersList <
+export default function getApiUsersList<
   P = GetApiUsersListRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

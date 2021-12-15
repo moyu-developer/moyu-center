@@ -1,21 +1,12 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
-const postApiUsersRegister = (allParams, options) => {
-
-  
-  
-  
-
-  
-  return request({
-    url: `/users/register`,
-    method: 'POST',
-    params: {
-      
-    },
+const postApiUsersRegister = (allParams, options) =>
+  request({
+    url: "/users/register",
+    method: "POST",
+    params: {},
     data: allParams,
-    ...options
-  })
-}
+    ...options,
+  });
 
-export default postApiUsersRegister
+export default postApiUsersRegister;

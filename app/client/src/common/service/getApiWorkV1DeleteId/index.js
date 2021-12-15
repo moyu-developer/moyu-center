@@ -1,31 +1,19 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
 const getApiWorkV1DeleteId = (allParams, options) => {
-
-  
-  
-  
   const {
-    
-      
-        id,
-      
-    
-    
-    ...data
-  } = allParams
-  
+    id,
 
-  
+    ...data
+  } = allParams;
+
   return request({
     url: `/work/v1/delete/${id}`,
-    method: 'GET',
-    params: {
-      
-    },
-    data: data,
-    ...options
-  })
-}
+    method: "GET",
+    params: {},
+    data,
+    ...options,
+  });
+};
 
-export default getApiWorkV1DeleteId
+export default getApiWorkV1DeleteId;

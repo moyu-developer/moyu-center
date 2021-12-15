@@ -1,21 +1,12 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
-const getApiWorkV1List = (allParams, options) => {
-
-  
-  
-  
-
-  
-  return request({
-    url: `/work/v1/list`,
-    method: 'GET',
-    params: {
-      
-    },
+const getApiWorkV1List = (allParams, options) =>
+  request({
+    url: "/work/v1/list",
+    method: "GET",
+    params: {},
     data: allParams,
-    ...options
-  })
-}
+    ...options,
+  });
 
-export default getApiWorkV1List
+export default getApiWorkV1List;

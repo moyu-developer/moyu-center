@@ -1,9 +1,9 @@
-import { useMemo, Suspense, useEffect } from 'react';
+import { useMemo, Suspense, useEffect } from "react";
 import baseRouter from "config/baseRouter";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RequireAuth from "src/components/Auth/Require";
 
-import type { MenuDataItem } from '@ant-design/pro-layout';
+import type { MenuDataItem } from "@ant-design/pro-layout";
 
 function createRouteNode(routes: MenuDataItem[]) {
   if (!routes || routes.length === 0) return null;
@@ -30,7 +30,7 @@ function createRouteNode(routes: MenuDataItem[]) {
   });
 }
 
-export default () => {
+export default function () {
   const routesDOM = useMemo(() => {
     const component = createRouteNode(baseRouter);
     console.log(component, "ssss");
@@ -42,4 +42,4 @@ export default () => {
       <Routes>{routesDOM}</Routes>
     </BrowserRouter>
   );
-};
+}

@@ -1,9 +1,4 @@
-import {
-  SwaggerModule,
-  DocumentBuilder,
-  SwaggerDocumentOptions,
-  SwaggerCustomOptions,
-} from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/middleware/httpException.filter';
 import { TransformResponseInterceptor } from 'src/common/middleware/transformResponse.interceptor';
@@ -18,14 +13,6 @@ const swaggerConfig = new DocumentBuilder()
   .addBearerAuth()
   .setBasePath('http://localhost:8301/api')
   .build();
-
-const swaggerOptions: SwaggerCustomOptions = {
-  swaggerOptions: {
-    ignoreGlobalPrefix: true,
-    persistAuthorization: true,
-  },
-  customSiteTitle: '🦑moyu center 接口文档中心',
-};
 
 export default function registerAllMiddleware(app: INestApplication) {
   /** 关闭cores， 解决跨域 */

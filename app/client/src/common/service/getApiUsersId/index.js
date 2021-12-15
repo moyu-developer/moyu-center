@@ -1,31 +1,19 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
 const getApiUsersId = (allParams, options) => {
-
-  
-  
-  
   const {
-    
-      
-        id,
-      
-    
-    
-    ...data
-  } = allParams
-  
+    id,
 
-  
+    ...data
+  } = allParams;
+
   return request({
     url: `/users/${id}`,
-    method: 'GET',
-    params: {
-      
-    },
-    data: data,
-    ...options
-  })
-}
+    method: "GET",
+    params: {},
+    data,
+    ...options,
+  });
+};
 
-export default getApiUsersId
+export default getApiUsersId;

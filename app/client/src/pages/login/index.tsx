@@ -7,42 +7,42 @@ import {
 import { UserOutlined, MobileOutlined, LockOutlined } from "@ant-design/icons";
 import { message, Row, Tabs, Col, Button } from "antd";
 import { useState } from "react";
-import Banner from "./Banner";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "src/model";
-import { PostApiUsersLoginRequestTypes } from 'src/common/service/postApiUsersLogin/index';
-import { useNavigate } from 'react-router-dom';
-import logo from 'src/icons/logo.svg';
-import styles from  './index.module.less'
-import './model'
+import { PostApiUsersLoginRequestTypes } from "src/common/service/postApiUsersLogin/index";
+import { useNavigate } from "react-router-dom";
+import logo from "src/icons/logo.svg";
+import Banner from "./Banner";
+import styles from "./index.module.less";
+import "./model";
 
 type LoginType = "register" | "account";
 
 /** 登录表单类型 */
 interface LoginViewsForm {
-  user: PostApiUsersLoginRequestTypes,
-  autoLogin: boolean
+  user: PostApiUsersLoginRequestTypes;
+  autoLogin: boolean;
 }
 
 export default () => {
   /** @name 表单类型 */
   const [loginType, setLoginType] = useState<LoginType>("account");
 
-  const dispatch: Dispatch = useDispatch()
+  const dispatch: Dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   /**
-   * 
+   *
    * @param form 登录信息
-   * @returns 
+   * @returns
    */
   const handleUserLogin = async (form: LoginViewsForm) => {
-    await dispatch.login.loginByName(form)
-    navigate('/', {
-      replace: true
-    })
-  }
+    await dispatch.login.loginByName(form);
+    navigate("/", {
+      replace: true,
+    });
+  };
 
   return (
     <div>
@@ -53,7 +53,7 @@ export default () => {
         <Col sm={14} xl={16}>
           <div className={styles.container}>
             <LoginForm<LoginViewsForm>
-              onFinish={ handleUserLogin }
+              onFinish={handleUserLogin}
               title="登录 Moyu Center"
               subTitle="一个好看有趣的接口管理中心平台！"
               logo={logo}
@@ -67,18 +67,18 @@ export default () => {
                 activeKey={loginType}
                 onChange={(activeKey) => setLoginType(activeKey as LoginType)}
               >
-                <Tabs.TabPane key={"account"} tab={"快速登录"} />
-                <Tabs.TabPane key={"register"} disabled tab={"注册账户"} />
+                <Tabs.TabPane key="account" tab="快速登录" />
+                <Tabs.TabPane key="register" disabled tab="注册账户" />
               </Tabs>
               {loginType === "account" && (
                 <>
                   <ProFormText
-                    name={['user', 'username']}
+                    name={["user", "username"]}
                     fieldProps={{
                       size: "large",
-                      prefix: <UserOutlined className={"prefixIcon"} />,
+                      prefix: <UserOutlined className="prefixIcon" />,
                     }}
-                    placeholder={"请输入Gitlab账号!"}
+                    placeholder="请输入Gitlab账号!"
                     rules={[
                       {
                         required: true,
@@ -87,12 +87,12 @@ export default () => {
                     ]}
                   />
                   <ProFormText.Password
-                    name={['user', 'password']}
+                    name={["user", "password"]}
                     fieldProps={{
                       size: "large",
-                      prefix: <LockOutlined className={"prefixIcon"} />,
+                      prefix: <LockOutlined className="prefixIcon" />,
                     }}
-                    placeholder={"请输入Gitlab密码!"}
+                    placeholder="请输入Gitlab密码!"
                     rules={[
                       {
                         required: true,
@@ -107,10 +107,10 @@ export default () => {
                   <ProFormText
                     fieldProps={{
                       size: "large",
-                      prefix: <MobileOutlined className={"prefixIcon"} />,
+                      prefix: <MobileOutlined className="prefixIcon" />,
                     }}
                     name="mobile"
-                    placeholder={"手机号"}
+                    placeholder="手机号"
                     rules={[
                       {
                         required: true,
@@ -125,12 +125,12 @@ export default () => {
                   <ProFormCaptcha
                     fieldProps={{
                       size: "large",
-                      prefix: <LockOutlined className={"prefixIcon"} />,
+                      prefix: <LockOutlined className="prefixIcon" />,
                     }}
                     captchaProps={{
                       size: "large",
                     }}
-                    placeholder={"请输入验证码"}
+                    placeholder="请输入验证码"
                     captchaTextRender={(timing, count) => {
                       if (timing) {
                         return `${count} ${"获取验证码"}`;

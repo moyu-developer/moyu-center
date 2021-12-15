@@ -5,9 +5,9 @@ export interface GetApiUsersV1InfoRequestTypes {}
 
 export interface GetApiUsersV1InfoResponseTypes {
   data: {
-    username: string
-    userId: string
-    mobile: string
+    username: string;
+    userId: string;
+    mobile: string;
     iat: number;
     exp: number;
     jti: "token";

@@ -1,21 +1,12 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
-const getApiUsersList = (allParams, options) => {
-
-  
-  
-  
-
-  
-  return request({
-    url: `/users/list`,
-    method: 'GET',
-    params: {
-      
-    },
+const getApiUsersList = (allParams, options) =>
+  request({
+    url: "/users/list",
+    method: "GET",
+    params: {},
     data: allParams,
-    ...options
-  })
-}
+    ...options,
+  });
 
-export default getApiUsersList
+export default getApiUsersList;

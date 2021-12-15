@@ -20,13 +20,7 @@ export interface PostApiUsersRegisterRequestTypes {
   mobile: string;
 }
 
-
-
-
-export default function postApiUsersRegister <
+export default function postApiUsersRegister<
   P = PostApiUsersRegisterRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

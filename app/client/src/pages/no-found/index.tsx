@@ -1,3 +1,3 @@
-export default () => {
-  return <div>no found</div>
+export default function () {
+  return <div>no found</div>;
 }

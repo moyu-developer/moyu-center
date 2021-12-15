@@ -8,7 +8,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { User, UserDocument } from 'src/users/schemas/user.schema';
+import { UserDocument } from 'src/users/schemas/user.schema';
 
 export type WorkDto = Work & Document;
 @Schema({

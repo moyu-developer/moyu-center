@@ -1,47 +1,44 @@
-import { useMemo, useEffect } from 'react'
+import { useMemo, useEffect } from "react";
 import type { FC } from "react";
-import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { Dispatch } from 'src/model';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../model/index';
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
+import { Dispatch } from "src/model";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../model/index";
 
 export default ((props) => {
+  const location = useLocation();
 
-  const location = useLocation()
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const dispatch: Dispatch = useDispatch()
+  const dispatch: Dispatch = useDispatch();
 
   /** token是否存在 */
-  const hasLogin = useSelector((state: RootState) => state.common.token ? true : false)
+  const hasLogin = useSelector((state: RootState) => !!state.common.token);
 
-  const user = useSelector((state: RootState) => state.common.user)
+  const user = useSelector((state: RootState) => state.common.user);
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     if (!user && hasLogin) {
-      dispatch.common.getUserInfo()
+      dispatch.common.getUserInfo();
     }
-  }, [user, hasLogin])
+  }, [user, hasLogin, dispatch]);
 
   useEffect(() => {
-    dispatch.common.setNavigateInstance(navigate)
-  }, [])
+    dispatch.common.setNavigateInstance(navigate);
+  }, []);
 
-  const LoginResult =  useMemo(() => {
+  const LoginResult = useMemo(() => {
     if (!hasLogin) {
       return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    if (location.pathname === '/login') {
+    if (location.pathname === "/login") {
       return <Navigate to="/" replace />;
     }
 
-    return props.children
-  }, [hasLogin])
+    return props.children;
+  }, [hasLogin]);
 
-  return LoginResult
-
-  
-}) as FC
+  return LoginResult;
+}) as FC;

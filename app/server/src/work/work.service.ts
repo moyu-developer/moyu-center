@@ -83,6 +83,7 @@ export class WorkService {
       const currentWork = await this.workModel.findById(id).exec();
       if (currentWork) {
         const result = await this.workModel.updateOne(work);
+        console.log(result);
         return true;
       } else {
         throw new GlobalServiceError(

@@ -13,13 +13,7 @@ export interface PutApiWorkV1ChangeIdRequestTypes {
   id?: string;
 }
 
-
-
-
-export default function putApiWorkV1ChangeId <
+export default function putApiWorkV1ChangeId<
   P = PutApiWorkV1ChangeIdRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

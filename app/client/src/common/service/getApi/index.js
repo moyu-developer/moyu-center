@@ -1,21 +1,12 @@
-import request from 'src/common/tools/request'
+import request from "src/common/tools/request";
 
-const getApi = (allParams, options) => {
-
-  
-  
-  
-
-  
-  return request({
-    url: ``,
-    method: 'GET',
-    params: {
-      
-    },
+const getApi = (allParams, options) =>
+  request({
+    url: "",
+    method: "GET",
+    params: {},
     data: allParams,
-    ...options
-  })
-}
+    ...options,
+  });
 
-export default getApi
+export default getApi;

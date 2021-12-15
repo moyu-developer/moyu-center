@@ -12,22 +12,15 @@ export interface PostApiUsersLoginRequestTypes {
   password: string;
 }
 
-
 export interface PostApiUsersLoginResponseTypes {
   data: {
-    token: string
-  },
-  code: number,
-  message: string
+    token: string;
+  };
+  code: number;
+  message: string;
 }
 
-
-
-
-export default function postApiUsersLogin <
+export default function postApiUsersLogin<
   P = PostApiUsersLoginRequestTypes,
   R = PostApiUsersLoginResponseTypes
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;

@@ -5,30 +5,28 @@ import { Badge, Menu } from "antd";
 
 const ProjectTabs = [
   {
-    tab: '接口管理',
-    key: 'interface',
+    tab: "接口管理",
+    key: "interface",
   },
   {
-    tab: '测试管理',
-    key: 'test',
+    tab: "测试管理",
+    key: "test",
   },
   {
-    tab: '项目设置',
-    key: 'settings',
+    tab: "项目设置",
+    key: "settings",
   },
-]
+];
 
-export default () => {
+export default function () {
   const [selectContentKey, setSelectContentKey] = useState("interface");
 
   return (
-    <PageContainer
-      tabList={ProjectTabs}
-    >
+    <PageContainer tabList={ProjectTabs}>
       <div>
         <ProCard split="vertical">
           <ProCard title="业务线归属" colSpan="250px">
-            <Menu selectedKeys={['interface']} direction="ltr">
+            <Menu selectedKeys={["interface"]} direction="ltr">
               <Menu.Item key="1">
                 <Badge status="processing" text="Success" />
               </Menu.Item>
@@ -54,4 +52,4 @@ export default () => {
       </div>
     </PageContainer>
   );
-};
+}

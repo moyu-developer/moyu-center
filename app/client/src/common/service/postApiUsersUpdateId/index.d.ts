@@ -21,13 +21,7 @@ export interface PostApiUsersUpdateIdRequestTypes {
   id?: string;
 }
 
-
-
-
-export default function postApiUsersUpdateId <
+export default function postApiUsersUpdateId<
   P = PostApiUsersUpdateIdRequestTypes,
   R = any
->(
-  allParams: P,
-  options?: Record<string, any>
-): Promise<R>
+>(allParams: P, options?: Record<string, any>): Promise<R>;
