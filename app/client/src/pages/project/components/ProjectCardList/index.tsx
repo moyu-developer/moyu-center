@@ -11,6 +11,7 @@ import CardInfo from './CardInfo'
 import styles from "./index.module.less";
 
 import { CARD_ACTION } from '../../constant'
+import { Link, useNavigate } from 'react-router-dom';
 
 const arr = Array.from(new Array(10 + 1).keys()).slice(1);
 
@@ -19,6 +20,8 @@ export interface ProjectCardListProps {
 }
 
 export default () => {
+
+  const navigate  = useNavigate()
 
   const handleCardAction = <T extends any>(action: CARD_ACTION, payload?: T) => {
     switch (action) {
@@ -57,7 +60,9 @@ export default () => {
         grid={{ gutter: 24, xxl: 6, xl: 3, lg: 3, md: 2, sm: 1, xs: 1 }}
         dataSource={arr}
         renderItem={(item) => (
+          
           <List.Item key={item}>
+            <Link to="/project/detail" state={{a: 1}}>
             <Card
               hoverable
               bodyStyle={{ paddingBottom: 20 }}
@@ -86,6 +91,8 @@ export default () => {
                 <CardInfo count="0个" users="0位" className={styles.cardInfo} />
               </div>
             </Card>
+            </Link>
+            
           </List.Item>
         )}
       />

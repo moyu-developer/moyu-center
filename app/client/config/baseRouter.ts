@@ -1,7 +1,13 @@
-import { createElement, lazy } from 'react'
-import { SmileOutlined, FundOutlined, ClusterOutlined, CodepenOutlined } from '@ant-design/icons';
-import Layout from 'src/layouts'
-import { MenuDataItem } from '@ant-design/pro-layout';
+import { createElement, lazy } from "react";
+import {
+  SmileOutlined,
+  FundOutlined,
+  ClusterOutlined,
+  CodepenOutlined,
+} from "@ant-design/icons";
+import Layout from "src/layouts";
+import { MenuDataItem } from "@ant-design/pro-layout";
+import { Outlet } from "react-router-dom";
 
 /**
  * @FIXME 2021年12月11日
@@ -11,53 +17,60 @@ import { MenuDataItem } from '@ant-design/pro-layout';
 
 export default [
   {
-    path: '/',
-    name: '首页',
+    path: "/",
+    name: "首页",
     icon: createElement(SmileOutlined),
     component: createElement(Layout),
     routes: [
       {
-        path: '/',
-        name: '首页',
+        path: "/",
+        name: "首页",
         index: true,
-        component: createElement(lazy(() => import('src/pages/dashboard'))),
+        component: createElement(lazy(() => import("src/pages/dashboard"))),
         icon: createElement(FundOutlined),
       },
       {
-        path: '/project',
-        name: '项目管理',
-        meta: {
-          auth: [0, 1],
-        },
-        component: createElement(lazy(() => import('../src/pages/project'))),
+        path: "project",
+        name: "项目管理",
+        component: createElement(Outlet),
         icon: createElement(ClusterOutlined),
+        routes: [
+          {
+            path: "/work",
+            name: "业务线",
+            index: true,
+            hideInMenu: true,
+            component: createElement(
+              lazy(() => import("../src/pages/project"))
+            ),
+            icon: createElement(ClusterOutlined),
+          },
+          {
+            path: "detail",
+            name: "项目管理详情",
+            hideInMenu: true,
+            component: createElement(
+              lazy(() => import("../src/pages/project-detail"))
+            ),
+            icon: createElement(ClusterOutlined),
+          },
+        ],
       },
       {
-        path: '/project/detail',
-        name: '项目管理详情',
+        path: "/namespace",
         hideInMenu: true,
-        meta: {
-          auth: [0, 1],
-        },
-        component: createElement(lazy(() => import('../src/pages/project-detail'))),
-        icon: createElement(ClusterOutlined),
-      },
-      {
-        path: '/namespace',
-        hideInMenu: true,
-        name: '空间',
-        component: createElement(lazy(() => import('../src/pages/namespace'))),
+        name: "空间",
+        component: createElement(lazy(() => import("../src/pages/namespace"))),
         icon: createElement(CodepenOutlined),
-        
       },
     ],
   },
   {
-    path: '/login',
-    component: createElement(lazy(() => import('../src/pages/login')))
+    path: "/login",
+    component: createElement(lazy(() => import("../src/pages/login"))),
   },
   {
-    path: '*',
-    component: createElement(lazy(() => import('../src/pages/no-found')))
-  }
-] as MenuDataItem[]
+    path: "*",
+    component: createElement(lazy(() => import("../src/pages/no-found"))),
+  },
+] as MenuDataItem[];

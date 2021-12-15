@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link,  } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import logo from '../icons/logo.svg'
 import AvatarBar from './AvatarBar'
 
-import type { ProSettings } from "@ant-design/pro-layout";
+import { ProBreadcrumb, ProSettings } from "@ant-design/pro-layout";
 
 const BASE_PATH: string = '/'
 
@@ -21,6 +21,8 @@ export default () => {
   });
   const [pathname, setPathname] = useState(BASE_PATH);
 
+  const location =  useLocation()
+
   useEffect(() => {
   }, [])
 
@@ -33,9 +35,7 @@ export default () => {
     >
       <ProLayout
         route={baseRouter[0]}
-        location={{
-          pathname,
-        }}
+        location={location}
         title="Moyu Center"
         logo={logo}
         waterMarkProps={{
@@ -43,16 +43,11 @@ export default () => {
         }}
         layout="top"
         onMenuHeaderClick={(e) => console.log(e)}
-        menuItemRender={(item, dom) => (
-          <Link
-            to={item.path || BASE_PATH}
-            onClick={() => {
-              setPathname(item.path || BASE_PATH);
-            }}
-          >
-            {dom}
-          </Link>
-        )}
+        menuItemRender={(item, dom) => <Link
+          to={item.path || BASE_PATH}
+        >
+          {dom}
+        </Link>}
         rightContentRender={() => (
           <div>
             <AvatarBar/>
