@@ -2,11 +2,6 @@
 node_modules
 **/node_modules
 
-.vscode
-
-# macos
-.DS_Store
-
 # production
 dist
 **/dist
@@ -14,29 +9,8 @@ dist
 # ssr production
 dist-ssr
 **/dist-ssr
-
-# local env
-*.local
-
-
-# pnpm package npmrc
-pnpm-lock.yaml
-.pnpm-debug.log
-
-
-# npm
-
-package-lock.json
-
-# config
-**/moyu.config.js
-
-# env
-**/.development.env
-**/.production.env
-**/.env.development
-**/.env.production
-
-# eslint
-
 .eslintignore
+
+# eslint 
+
+.eslintrc.js

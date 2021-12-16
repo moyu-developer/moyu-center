@@ -1,9 +1,9 @@
 import { useMemo, useEffect } from "react";
 import type { FC } from "react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
-import { Dispatch } from "src/model";
+import type { Dispatch } from "src/model";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../model/index";
+import type { RootState } from "../../model/index";
 
 export default ((props) => {
   const location = useLocation();
@@ -26,7 +26,7 @@ export default ((props) => {
 
   useEffect(() => {
     dispatch.common.setNavigateInstance(navigate);
-  }, []);
+  }, [dispatch, navigate]);
 
   const LoginResult = useMemo(() => {
     if (!hasLogin) {
@@ -38,7 +38,7 @@ export default ((props) => {
     }
 
     return props.children;
-  }, [hasLogin]);
+  }, [hasLogin, location, props.children]);
 
   return LoginResult;
 }) as FC;

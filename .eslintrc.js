@@ -1,2 +1,7 @@
-const fabric = require("@umijs/fabric");
-module.exports = fabric.eslint;
+module.exports = {
+  extends: [require.resolve('@umijs/fabric/dist/eslint')],
+
+  rules: {
+    '@typescript-eslint/no-parameter-properties': 0
+  },
+};

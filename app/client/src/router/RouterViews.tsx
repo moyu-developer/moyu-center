@@ -1,4 +1,4 @@
-import { useMemo, Suspense, useEffect } from "react";
+import { useMemo, Suspense } from "react";
 import baseRouter from "config/baseRouter";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RequireAuth from "src/components/Auth/Require";
