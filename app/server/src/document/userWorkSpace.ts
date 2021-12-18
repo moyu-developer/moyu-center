@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongoSchema } from 'mongoose';
-import { UserDocument } from 'src/users/schemas/user.schema';
-import { ProjectDto } from './project.dto';
-import { WorkDto } from './work.dto';
+import type { UserDocument } from 'src/users/schemas/user.schema';
+import type { ProjectDto } from './project.dto';
+import type { WorkDto } from './work.dto';
 
 @Schema({
   collection: 'workspace',
