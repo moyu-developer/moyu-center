@@ -5,7 +5,7 @@ import type { ProjectDto } from './project.dto';
 import type { WorkDto } from './work.dto';
 
 @Schema({
-  collection: 'workspace',
+  collection: 'user_work_project',
   timestamps: true,
 })
 export class WorkSpace {

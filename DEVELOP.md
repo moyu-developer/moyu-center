@@ -1,4 +1,4 @@
-## 项目组织
+## 基本
 
 使用 `pnpm` 作为主要的包管理器，用于monorepo的代码组织协调，尽可能的对当前包的处理是干净的，用于处理
 
@@ -11,7 +11,7 @@
 - `@moyu/shared`：公共的，适用于所有项目的，用于抽象成工具方法和全团队代码组织。
 
 
-## 命令行
+### 命令行
 
 ```shell
 # 安装所有依赖
@@ -30,7 +30,7 @@ pnpm run build:client [options]
 pnpm run build:server [options]
 ```
 
-## 规范配置
+### 规范配置
 
 为什么会有规范配置？
 
@@ -82,3 +82,24 @@ pnpm run build:server [options]
 
 - `...其他`
 
+
+## 服务端
+
+### URI
+
+一个API 通过以下情况构成。分别为`base_url`, `server_name`, `version`, `api`, `参数`等结果构成。
+
+如下面示例来构成一个接口。可以快速的管理当前的接口版本，进行迭代升级。
+
+```shell
+# api
+
+http://open.moyu-center.com/work/v1/list?current=1&pageSize=40
+
+```
+
+### 目录
+
+## 客户端
+
+... 待完善
