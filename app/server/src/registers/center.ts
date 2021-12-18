@@ -1,8 +1,8 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common';
+import type { INestApplication} from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/middleware/httpException.filter';
 import { TransformResponseInterceptor } from 'src/common/middleware/transformResponse.interceptor';
-import { ValidationPipe } from 'src/common/pipe/validation';
+import { ValidationPipe as CustomTransformPipe } from 'src/common/pipe/validation';
 
 const swaggerConfig = new DocumentBuilder()
   .setTitle('Moyu Center API')
@@ -19,7 +19,7 @@ export default function registerAllMiddleware(app: INestApplication) {
   app.enableCors();
 
   /** 全局使用管道 */
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new CustomTransformPipe());
 
   /** 注册http错误过滤器 */
   app.useGlobalFilters(new HttpExceptionFilter());
