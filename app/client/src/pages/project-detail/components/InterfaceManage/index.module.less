@@ -1,0 +1,21 @@
+.treeNode {
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &::before &Icon {
+    display: block;
+  }
+
+  &Title {
+    flex: 1;
+  }
+
+  &Icon {
+    display: none;
+  }
+  :global().ant-tree-switcher {
+    display: none;
+  }
+}
