@@ -3,46 +3,22 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { HttpCode } from 'src/common/enums/http';
 import { GlobalServiceError } from 'src/common/utils';
-import { WorkDto, Work } from 'src/document';
-import { UserDocument } from 'src/users/schemas/user.schema';
-import { UpdateWorkDto } from './dto/update.dto';
+import type { WorkDto} from 'src/document';
+import { Work } from 'src/document';
+import type { UpdateWorkDto } from './dto/update.dto';
 
 @Injectable()
 export class WorkService {
-  constructor(@InjectModel(Work.name) private workModel: Model<WorkDto>) {}
+  constructor(
+    @InjectModel(Work.name) private workModel: Model<WorkDto>
+  ) {}
 
   /** 通过业务线id将其删除 */
-  async deleteWorkLineById(id: WorkDto['_id'], userId: string) {
+  async deleteWorkLineById(id: WorkDto['_id']) {
     try {
-      const currentWork = await this.workModel.findById(id);
-
-      if (!currentWork._id) {
-        throw new GlobalServiceError(
-          HttpCode.SERVER_ERROR,
-          `当前删除的数据不存在, 请检查传入id: ${id}`,
-        );
-      }
-
-      if (currentWork.user !== userId) {
-        throw new GlobalServiceError(
-          HttpCode.SERVER_ERROR,
-          `你没有权限删除此业务线，请联系管理员`,
-        );
-      }
-
-      const isDelete = await this.workModel
-        .updateOne(
-          {
-            _id: id,
-          },
-          {
-            isDelete: true,
-          },
-        )
-        .exec();
-      return isDelete.upsertedId ? true : false;
+      const res = await this.workModel.deleteOne({_id: id})
+      return res.deletedCount > 0
     } catch (error) {
-      console.error(error);
       throw new GlobalServiceError(HttpCode.SERVER_ERROR);
     }
   }
@@ -63,13 +39,16 @@ export class WorkService {
   }
 
   /** 查询当前用户下所有业务线归属 */
-  async findUserWorkListByUserId(id: UserDocument['_id']) {
+  async findUserWorkListById(ids: WorkDto['_id'][]) {
     try {
-      const works = this.workModel
+      const works = await this.workModel
         .find({
-          user: id,
+          _id: {
+            $in: ids
+          },
         })
         .exec();
+        console.log(works, 'works')
       return works;
     } catch (error) {
       console.error(error);
