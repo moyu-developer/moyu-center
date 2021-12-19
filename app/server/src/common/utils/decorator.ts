@@ -1,10 +1,11 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { UserDocument } from 'src/users/schemas/user.schema';
+import type { ExecutionContext } from '@nestjs/common';
+import { createParamDecorator } from '@nestjs/common';
+import type { UserDto } from 'src/model';
 export interface ReturnUserTypes {
-  username: UserDocument['username'];
-  userId: UserDocument['_id'];
-  mobile: UserDocument['mobile'];
-  email: UserDocument['email'];
+  username: UserDto['username'];
+  userId: UserDto['_id'];
+  mobile: UserDto['mobile'];
+  email: UserDto['email'];
 }
 
 /**
@@ -16,7 +17,7 @@ export const GetRequestUser = createParamDecorator(
   (data: keyof ReturnUserTypes, ctx: ExecutionContext) => {
     const req = ctx.switchToHttp().getRequest();
     if (data) {
-      return req.user['data'];
+      return req.user.data;
     }
     return req.user;
   },

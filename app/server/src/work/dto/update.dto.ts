@@ -1,12 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateWorkDto {
   @IsOptional()
+  @IsString()
+  @Type(() => String)
   @ApiProperty({ description: '业务线名称', required: false })
-  name: string;
+  name?: string;
 
   @IsOptional()
-  @ApiProperty({ description: '业务线简介' })
-  description: string;
+  @Type(() => String)
+  @ApiProperty({ description: '业务线简介', required: false })
+  description?: string;
 }

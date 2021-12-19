@@ -1,14 +1,17 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto, UpdateUserDto } from 'src/document';
-import { User, UserDocument } from './schemas/user.schema';
+import type { UserDto } from 'src/model';
+import { User } from 'src/model';
 import { makeSalt, encryptPassword } from 'src/common/utils/cryptogram';
-import { pageQuery, QueryResult } from 'src/common/helper/dbHelper';
+import type { QueryResult } from 'src/common/helper/dbHelper';
+import { pageQuery } from 'src/common/helper/dbHelper';
+import type { UpdateUserDto } from './dto/update-user.dto';
+import type { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDto>) {}
 
   async register(createUserDto: CreateUserDto): Promise<User> {
     const { username, password, email, mobile } = createUserDto;

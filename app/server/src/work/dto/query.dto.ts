@@ -6,5 +6,5 @@ export class QueryWorkDto {
   @ApiProperty({ description: '状态', enum: [1, 2], required: false })
   @Type(() => Number)
   @IsNumber()
-  status: 1 | 2;
+  status?: 1 | 2;
 }

@@ -1,6 +1,6 @@
 // src/logical/auth/auth.service.ts
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { encryptPassword } from 'src/common/utils/cryptogram';
 

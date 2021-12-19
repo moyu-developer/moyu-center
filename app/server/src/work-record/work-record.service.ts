@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import type { WorkRecordDto } from 'src/document/work-record';
-import { WorkRecord } from '../document/work-record';
+import type { WorkRecordDto } from 'src/model';
+import { WorkRecord } from 'src/model'
 import { GlobalServiceError } from 'src/common/utils/catch';
-import { HttpCode } from 'src/common/enums/http';
+import type { ObjectId } from 'mongoose';
 
 @Injectable()
 export class WorkRecordService {
@@ -22,7 +22,7 @@ export class WorkRecordService {
       const result = await this.workRecordModel.insertMany(records)
       return result
     } catch (error) {
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 
@@ -32,10 +32,11 @@ export class WorkRecordService {
    */
   async findCurrentUserWorkRecords (record: Partial<WorkRecord>) {
     try {
-      const records = await this.workRecordModel.find(record, { work: true }).exec()
-      return records.map((item: WorkRecordDto) => item.work)
+      const records = await this.workRecordModel.find(record, { work_id: true }).exec()
+      console.log(records, 'records')
+      return records.map((item: WorkRecordDto) => item.work_id )
     } catch (error) {
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 
@@ -44,14 +45,14 @@ export class WorkRecordService {
    * @param workIds 业务线ids
    * @returns { boolean }
    */
-  async deleteAllRecordByWorkId (id: WorkRecord['work']): Promise<boolean> {
+  async deleteAllRecordByWorkId (id: ObjectId): Promise<boolean> {
     try {
       const records = await this.workRecordModel.deleteMany({
         work: id
       }).exec()
       return records.deletedCount > 0
     } catch (error) {
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR)
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 }

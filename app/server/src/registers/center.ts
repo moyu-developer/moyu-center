@@ -1,5 +1,6 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import type { INestApplication} from '@nestjs/common';
+import { VersioningType} from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/middleware/httpException.filter';
 import { TransformResponseInterceptor } from 'src/common/middleware/transformResponse.interceptor';
 import { ValidationPipe as CustomTransformPipe } from 'src/common/pipe/validation';
@@ -17,6 +18,12 @@ const swaggerConfig = new DocumentBuilder()
 export default function registerAllMiddleware(app: INestApplication) {
   /** 关闭cores， 解决跨域 */
   app.enableCors();
+
+  /** 开启接口版本管理 */
+  app.enableVersioning({
+    type: VersioningType.MEDIA_TYPE,
+    key: 'v=',
+  })
 
   /** 全局使用管道 */
   app.useGlobalPipes(new CustomTransformPipe());

@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 
 import { AuthModule } from './logical/auth/auth.module';
 
-import { UsersController } from './users/users.controller';
-import { UsersModule } from './users/users.module';
+import { UsersController } from './user/user.controller';
+import { UsersModule } from './user/user.module';
 import { WorkModule } from './work/work.module';
 
 @Module({

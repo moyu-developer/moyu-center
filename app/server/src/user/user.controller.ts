@@ -12,13 +12,15 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from 'src/document';
-import { User } from './schemas/user.schema';
-import { UsersService } from './users.service';
+import { UsersService } from './user.service';
 import { ValidationPipe } from 'src/common/pipe/validation';
 import { AuthService } from 'src/logical/auth/auth.service';
 import { GetRequestUser } from '../common/utils/decorator';
 import { QueryResult } from 'src/common/helper/dbHelper';
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from 'src/model';
 
 @ApiBearerAuth()
 @Controller('users')

@@ -8,23 +8,32 @@ import {
   Put,
   Delete,
   Query,
-} from '@nestjs/common';
-import { WorkService } from './work.service';
-import type { Work } from 'src/document';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
-import { GetRequestUser, ReturnUserTypes } from 'src/common/utils/decorator';
-import { UpdateWorkDto } from './dto/update.dto';
-import { WorkRecordService } from 'src/work-record/work-record.service';
-import { CreateWorkDto } from './dto/create.dto';
-import type { WorkRecord} from '../document/work-record';
-import { GlobalServiceError } from '../common/utils/catch';
-import { HttpCode } from '../common/enums/http';
-import { QueryWorkDto } from './dto/query.dto';
-import { ParseQueryPipe } from '../common/pipe/parseQuery';
-
-@Controller('work')
-@ApiTags('业务线')
+  Type,
+} from "@nestjs/common";
+import { WorkService } from "./work.service";
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
+import { GetRequestUser, ReturnUserTypes } from "src/common/utils/decorator";
+import { UpdateWorkDto } from "./dto/update.dto";
+import { WorkRecordService } from "src/work-record/work-record.service";
+import { CreateWorkDto } from "./dto/create.dto";
+import { GlobalServiceError } from "../common/utils/catch";
+import { QueryWorkDto } from "./dto/query.dto";
+import { ParseQueryPipe } from "../common/pipe/parseQuery";
+import { HttpStatus } from "@nestjs/common";
+import { Work } from "src/model";
+import type { WorkDto} from "src/model";
+import type { WorkRecord } from "src/model";
+import { ObjectId } from "mongoose";
+@Controller("work")
+@ApiTags("业务线")
 @ApiBearerAuth()
 export class WorkController {
   constructor(
@@ -32,73 +41,82 @@ export class WorkController {
     private readonly workRecordService: WorkRecordService
   ) {}
 
-  @Post('v1/create')
-  @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ summary: '创建一条业务线' })
+  @Post("v1/create")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "创建一条业务线" })
+  @ApiOkResponse({ description: '创建业务线成功'})
   async create(
     @Body() data: CreateWorkDto,
-    @GetRequestUser() user: ReturnUserTypes,
-  ) {
-   try {
+    @GetRequestUser() user: ReturnUserTypes
+  ): Promise<ObjectId> {
     const workData: Work = {
       name: data.name,
-      description: data?.description
-    }
+      description: data?.description,
+    };
 
     const workId = await this.workService.create(workData);
-    let records: WorkRecord[] = []
+    let records: WorkRecord[] = [];
     if (Array.isArray(data.users)) {
-      records = data.users.map((id: string) => ({
-        work: workId,
-        user: id,
-        action: 2
-      }))
+      records = data.users.map((id: ObjectId) => ({
+        work_id: workId,
+        user_id: id,
+        action: 2,
+      }));
     }
     records.push({
-      work: workId,
-      user: user.userId,
-      action: 1
-    })
-    this.workRecordService.createRecord(records)
-    return workId
-   } catch (error) {
-     throw new GlobalServiceError(HttpCode.SERVER_ERROR)
-   }
+      work_id: workId,
+      user_id: user.userId,
+      action: 1,
+    });
+    this.workRecordService.createRecord(records);
+    return workId;
   }
 
-  @Get('v1/list')
-  @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ summary: '当前用户所属业务线' })
-  async list(@Query(new ParseQueryPipe()) queryWork: QueryWorkDto, @GetRequestUser() user: ReturnUserTypes) {
+  @Get("v1/list")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "当前用户所属业务线" })
+  @ApiOkResponse({ status: 200, type: [Work] })
+  async list(
+    @Query(new ParseQueryPipe()) queryWork: QueryWorkDto,
+    @GetRequestUser() user: ReturnUserTypes
+  ): Promise<WorkDto[]> {
     const ids = await this.workRecordService.findCurrentUserWorkRecords({
       action: queryWork?.status,
-      user: user.userId
-    })
-    console.log(ids, 'ids')
+      user_id: user.userId,
+    });
     return await this.workService.findUserWorkListById(ids);
   }
 
-  @Delete('v1/delete/:id')
-  @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ summary: '通过id删除当前业务线' })
-  async delete(@Param('id') id: string, @GetRequestUser() user: ReturnUserTypes) {
+  @Delete("v1/delete/:id")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "通过id删除当前业务线" })
+  async delete(
+    @Param("id") id: ObjectId,
+    @GetRequestUser() user: ReturnUserTypes
+  ): Promise<boolean> {
     const ids = await this.workRecordService.findCurrentUserWorkRecords({
       action: 1,
-      work: id,
-      user: user.userId
-    })
+      work_id: id,
+      user_id: user.userId,
+    });
     if (ids && ids.length > 0) {
       /** 删除业务线 */
       await this.workService.deleteWorkLineById(id);
-      await this.workRecordService.deleteAllRecordByWorkId(id)
+      return await this.workRecordService.deleteAllRecordByWorkId(id);
     } else {
-      throw new GlobalServiceError(HttpCode.SERVER_FAIL, `未找到您创建的业务线，情核对当前的${id}是否正确`)
+      throw new GlobalServiceError(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        `未找到您创建的业务线，情核对当前的${id}是否正确`
+      );
     }
   }
-  @Put('v1/change/:id')
-  @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({ summary: '通过id修改当前业务线信息' })
-  async update(@Param('id') workId: string, @Body() payload: UpdateWorkDto) {
+  @Put("v1/change/:id")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "通过id修改当前业务线信息" })
+  async update(
+    @Param("id") workId: ObjectId,
+    @Body() payload: UpdateWorkDto
+  ): Promise<boolean> {
     return await this.workService.updateUserWorkListByUserId(workId, payload);
   }
 }

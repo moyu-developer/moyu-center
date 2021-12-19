@@ -1,12 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import type { ObjectId } from 'mongoose';
 import { Model } from 'mongoose';
-import { HttpCode } from 'src/common/enums/http';
 import { GlobalServiceError } from 'src/common/utils';
-import type { WorkDto} from 'src/document';
-import { Work } from 'src/document';
+import type { WorkDto } from 'src/model';
+import { Work } from 'src/model';
 import type { UpdateWorkDto } from './dto/update.dto';
-
 @Injectable()
 export class WorkService {
   constructor(
@@ -14,45 +13,39 @@ export class WorkService {
   ) {}
 
   /** 通过业务线id将其删除 */
-  async deleteWorkLineById(id: WorkDto['_id']) {
+  async deleteWorkLineById(id: ObjectId) {
     try {
       const res = await this.workModel.deleteOne({_id: id})
       return res.deletedCount > 0
     } catch (error) {
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR);
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  /**
-   * 创建业务线
-   * @param row 用户数据
-   * @requires _id 业务线id
-   */
-  async create(row: Work) {
+ async create(row: Work) {
     try {
       const afterCreateWorkLine = await new this.workModel(row).save();
       return afterCreateWorkLine._id;
     } catch (error) {
-      console.error(error);
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR);
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   /** 查询当前用户下所有业务线归属 */
-  async findUserWorkListById(ids: WorkDto['_id'][]) {
+  async findUserWorkListById(ids: ObjectId[]): Promise<WorkDto[]> {
     try {
-      const works = await this.workModel
+      const works: WorkDto[] = await this.workModel
         .find({
           _id: {
             $in: ids
           },
         })
         .exec();
-        console.log(works, 'works')
+      console.log(works)
       return works;
     } catch (error) {
       console.error(error);
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR);
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -62,17 +55,10 @@ export class WorkService {
       const currentWork = await this.workModel.findById(id).exec();
       if (currentWork) {
         const result = await this.workModel.updateOne(work);
-        console.log(result);
-        return true;
-      } else {
-        throw new GlobalServiceError(
-          HttpCode.SERVER_ERROR,
-          `当前业务线id数据未找到：${id}`,
-        );
+        return result.upsertedCount > 0;
       }
     } catch (error) {
-      console.error(error);
-      throw new GlobalServiceError(HttpCode.SERVER_ERROR);
+      throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

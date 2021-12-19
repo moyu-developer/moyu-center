@@ -1,10 +1,12 @@
-import {
+import type {
   ArgumentsHost,
-  Catch,
   ExceptionFilter,
-  HttpException,
+  HttpException} from '@nestjs/common';
+import {
+  Catch
 } from '@nestjs/common';
-import { codeMessage, HttpCode } from '../enums/http';
+import { codeMessage } from '../enums/http';
+import { HttpStatus } from '@nestjs/common';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -16,7 +18,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = context.getResponse();
 
     /** http状态 */
-    let httpStatus = HttpCode.SERVER_ERROR;
+    let httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     if (exception.getStatus) {
       httpStatus = exception.getStatus();
     }
