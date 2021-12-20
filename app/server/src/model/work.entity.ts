@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import type { Document, ObjectId } from "mongoose";
+import type { Document } from "mongoose";
 
-export type WorkDto = Work & Document<ObjectId>;
+export type WorkDto = Work & Document<string>;
 
 @Schema({
   collection: "work",

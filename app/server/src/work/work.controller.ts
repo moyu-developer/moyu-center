@@ -13,8 +13,6 @@ import {
 import { WorkService } from "./work.service";
 import {
   ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -26,10 +24,9 @@ import { WorkRecordService } from "src/work-record/work-record.service";
 import { CreateWorkDto } from "./dto/create.dto";
 import { GlobalServiceError } from "../common/utils/catch";
 import { QueryWorkDto } from "./dto/query.dto";
-import { ParseQueryPipe } from "../common/pipe/parseQuery";
 import { HttpStatus } from "@nestjs/common";
 import { Work } from "src/model";
-import type { WorkDto} from "src/model";
+import type { WorkDto } from "src/model";
 import type { WorkRecord } from "src/model";
 import { ObjectId } from "mongoose";
 @Controller("work")
@@ -44,7 +41,7 @@ export class WorkController {
   @Post("v1/create")
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "创建一条业务线" })
-  @ApiOkResponse({ description: '创建业务线成功'})
+  @ApiOkResponse({ description: "创建业务线成功" })
   async create(
     @Body() data: CreateWorkDto,
     @GetRequestUser() user: ReturnUserTypes
@@ -57,7 +54,7 @@ export class WorkController {
     const workId = await this.workService.create(workData);
     let records: WorkRecord[] = [];
     if (Array.isArray(data.users)) {
-      records = data.users.map((id: ObjectId) => ({
+      records = data.users.map((id: string) => ({
         work_id: workId,
         user_id: id,
         action: 2,
@@ -77,11 +74,11 @@ export class WorkController {
   @ApiOperation({ summary: "当前用户所属业务线" })
   @ApiOkResponse({ status: 200, type: [Work] })
   async list(
-    @Query(new ParseQueryPipe()) queryWork: QueryWorkDto,
+    @Query() queryWork: QueryWorkDto,
     @GetRequestUser() user: ReturnUserTypes
   ): Promise<WorkDto[]> {
     const ids = await this.workRecordService.findCurrentUserWorkRecords({
-      action: queryWork?.status,
+      ...queryWork,
       user_id: user.userId,
     });
     return await this.workService.findUserWorkListById(ids);
@@ -114,7 +111,7 @@ export class WorkController {
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "通过id修改当前业务线信息" })
   async update(
-    @Param("id") workId: ObjectId,
+    @Param("id") workId: string,
     @Body() payload: UpdateWorkDto
   ): Promise<boolean> {
     return await this.workService.updateUserWorkListByUserId(workId, payload);

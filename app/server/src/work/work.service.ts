@@ -1,6 +1,5 @@
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import type { ObjectId } from 'mongoose';
 import { Model } from 'mongoose';
 import { GlobalServiceError } from 'src/common/utils';
 import type { WorkDto } from 'src/model';
@@ -13,7 +12,7 @@ export class WorkService {
   ) {}
 
   /** 通过业务线id将其删除 */
-  async deleteWorkLineById(id: ObjectId) {
+  async deleteWorkLineById(id: string) {
     try {
       const res = await this.workModel.deleteOne({_id: id})
       return res.deletedCount > 0
@@ -32,7 +31,7 @@ export class WorkService {
   }
 
   /** 查询当前用户下所有业务线归属 */
-  async findUserWorkListById(ids: ObjectId[]): Promise<WorkDto[]> {
+  async findUserWorkListById(ids: string[]): Promise<WorkDto[]> {
     try {
       const works: WorkDto[] = await this.workModel
         .find({

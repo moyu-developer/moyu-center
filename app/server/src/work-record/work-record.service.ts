@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import type { WorkRecordDto } from 'src/model';
 import { WorkRecord } from 'src/model'
 import { GlobalServiceError } from 'src/common/utils/catch';
-import type { ObjectId } from 'mongoose';
 
 @Injectable()
 export class WorkRecordService {
@@ -45,7 +44,7 @@ export class WorkRecordService {
    * @param workIds 业务线ids
    * @returns { boolean }
    */
-  async deleteAllRecordByWorkId (id: ObjectId): Promise<boolean> {
+  async deleteAllRecordByWorkId (id: string): Promise<boolean> {
     try {
       const records = await this.workRecordModel.deleteMany({
         work: id

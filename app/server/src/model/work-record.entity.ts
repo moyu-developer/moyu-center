@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongoSchema } from 'mongoose';
 import type { Document} from 'mongoose';
 
-export type WorkRecordDto = WorkRecord & Document<MongoSchema.Types.ObjectId>
+export type WorkRecordDto = WorkRecord & Document<string>
 
 @Schema({
   collection: 'work_record',
@@ -16,7 +16,7 @@ export class WorkRecord {
   user_id: MongoSchema.Types.ObjectId
 
   @Prop({ type: MongoSchema.Types.ObjectId, required: true })
-  work_id: MongoSchema.Types.ObjectId
+  work_id: string
 
   @Prop({ required: true })
   action: 1 | 2
