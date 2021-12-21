@@ -13,7 +13,7 @@ import type { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDto>) {}
 
-  async register(createUserDto: CreateUserDto): Promise<User> {
+  async register(createUserDto: CreateUserDto): Promise<UserDto['_id']> {
     const { username, password, email, mobile } = createUserDto;
     const user = await this.userModel.findOne({ username });
     if (!user) {
@@ -26,12 +26,13 @@ export class UsersService {
         salt,
         mobile,
       });
-      return (await createdUser.save())._id;
+      const data = await createdUser.save()
+      return data._id;
     }
     throw new BadRequestException(`用户名：${createUserDto.username} 已存在!`);
   }
 
-  async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
+  async update(updateUserDto: UpdateUserDto, id: string): Promise<UserDto['_id']> {
     const updateUserInfo = { ...updateUserDto, salt: makeSalt() };
     if (updateUserDto.password) {
       updateUserInfo.password = encryptPassword(

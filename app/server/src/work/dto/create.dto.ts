@@ -16,7 +16,6 @@ export class CreateWorkDto {
   @ApiProperty({ description: '业务线简介', required: false })
   description?: string;
 
-
   constructor(partial: Partial<CreateWorkDto>) {
     Object.assign(this, partial);
   }

@@ -13,7 +13,7 @@ export class WorkRecord {
     type: MongoSchema.Types.ObjectId,
     required: true,
   })
-  user_id: MongoSchema.Types.ObjectId
+  user_id: string
 
   @Prop({ type: MongoSchema.Types.ObjectId, required: true })
   work_id: string

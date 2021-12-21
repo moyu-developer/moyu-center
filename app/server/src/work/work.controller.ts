@@ -8,7 +8,6 @@ import {
   Put,
   Delete,
   Query,
-  Type,
 } from "@nestjs/common";
 import { WorkService } from "./work.service";
 import {
@@ -28,7 +27,7 @@ import { HttpStatus } from "@nestjs/common";
 import { Work } from "src/model";
 import type { WorkDto } from "src/model";
 import type { WorkRecord } from "src/model";
-import { ObjectId } from "mongoose";
+import type { ObjectId } from "mongoose";
 @Controller("work")
 @ApiTags("业务线")
 @ApiBearerAuth()
@@ -45,7 +44,7 @@ export class WorkController {
   async create(
     @Body() data: CreateWorkDto,
     @GetRequestUser() user: ReturnUserTypes
-  ): Promise<ObjectId> {
+  ): Promise<string> {
     const workData: Work = {
       name: data.name,
       description: data?.description,
@@ -88,7 +87,7 @@ export class WorkController {
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "通过id删除当前业务线" })
   async delete(
-    @Param("id") id: ObjectId,
+    @Param("id") id: string,
     @GetRequestUser() user: ReturnUserTypes
   ): Promise<boolean> {
     const ids = await this.workRecordService.findCurrentUserWorkRecords({
