@@ -1,5 +1,6 @@
 import { createElement } from "react";
-import GotAxios, { AxiosRequestConfig } from "@moyu/request";
+import type { AxiosRequestConfig } from "@moyu/request";
+import GotAxios from "@moyu/request";
 import { notification, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import store from "src/model";

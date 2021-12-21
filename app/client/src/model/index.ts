@@ -1,5 +1,7 @@
-import { init, RematchDispatch, RematchRootState } from "@rematch/core";
-import rematchRuntimeStatus, { ExtraModelsFromLoading } from "@rematch/loading";
+import type { RematchDispatch, RematchRootState } from "@rematch/core";
+import { init } from "@rematch/core";
+import type { ExtraModelsFromLoading } from "@rematch/loading";
+import rematchRuntimeStatus from "@rematch/loading";
 import { globalModels } from "./connect";
 import type { RootModel } from "./connect";
 

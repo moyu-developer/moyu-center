@@ -1,10 +1,11 @@
 import { createModel } from "@rematch/core";
-import { RootModel } from "src/model/connect";
+import type { RootModel } from "src/model/connect";
 import store from "src/model";
 import { message } from "antd";
-import postApiUsersLogin, {
+import type {
   PostApiUsersLoginRequestTypes,
 } from "src/common/service/postApiUsersLogin";
+import postApiUsersLogin from "src/common/service/postApiUsersLogin";
 
 export type LoginModel = typeof loginModel;
 

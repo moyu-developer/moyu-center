@@ -1,44 +1,38 @@
-import { FC, useMemo } from "react";
-import { Button, message } from "antd";
-import ProForm, {
+import type { FC } from "react";
+import { useMemo } from "react";
+import { Button } from "antd";
+import {
   ModalForm,
   ProFormGroup,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-form";
-
-const waitTime = (time = 100) =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
+import type { Dispatch } from "src/model";
+import type { CreateWorkSpacePayload } from 'src/common/api/work';
+import { useDispatch } from "react-redux";
 
 export interface CreateWorkSpaceModalProps {
   payload?: Record<string, any>;
 }
 
 export default ((props) => {
+
+  const dispatch: Dispatch = useDispatch()
+
+  console.log(dispatch.project, 'dispatch')
+
   const title = useMemo(
     () => (props.payload ? "修改业务线" : "新建业务线"),
     [props.payload]
   );
 
   return (
-    <ModalForm
+    <ModalForm<Required<CreateWorkSpacePayload>>
       title={title}
       trigger={<Button type="link">{title}</Button>}
       autoFocusFirstInput
-      modalProps={{
-        onCancel: () => console.log("run"),
-      }}
-      onFinish={async (values) => {
-        await waitTime(2000);
-        console.log(values.name);
-        message.success("提交成功");
-        return true;
-      }}
+      onFinish={dispatch.project.createCurrentWorkForm}
     >
       <ProFormGroup label="基本信息">
         <ProFormText

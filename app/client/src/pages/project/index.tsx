@@ -11,6 +11,8 @@ import OperatingLog from "./components/OperatingLog";
 import Setting from "./components/Setting";
 import styles from "./index.module.less";
 
+import './model'
+
 export default function () {
   const [selectContentKey, setSelectContentKey] = useState("list");
 
