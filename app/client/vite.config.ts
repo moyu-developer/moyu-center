@@ -2,8 +2,14 @@ import { defineConfig } from "vite";
 import React from "@vitejs/plugin-react";
 import VitePluginImp from "vite-plugin-imp";
 import ReactRefresh from "@vitejs/plugin-react-refresh";
+import lessToJS from "less-vars-to-js";
 import Inspect from "vite-plugin-inspect";
 import { resolve } from "path";
+import fs from "fs";
+
+const themeVariables = lessToJS(
+  fs.readFileSync(resolve(__dirname, './src/common/style/theme.less'), "utf8")
+);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -41,7 +47,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       less: {
-        // modifyVars: { 'primary-color': '#13c2c2' },
+        modifyVars: themeVariables,
         javascriptEnabled: true,
       },
     },
