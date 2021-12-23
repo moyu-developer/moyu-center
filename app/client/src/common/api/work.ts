@@ -7,15 +7,11 @@ export interface CreateWorkSpacePayload {
   description?: string;
 }
 
-/**
- * 获取业务线列表
- * @returns 业务线列表
- */
-export const getWorkList = () =>
-  request({
-    url: "/work/list",
-    method: HttpMethod.GET,
-  });
+export interface Work {
+  _id: string,
+  name: string;
+  description?: string;
+}
 
 /**
  * 通过payload创建一条业务线
@@ -32,3 +28,13 @@ export const createWorkSpace = (
  * @returns 是否删除成功
  */
 export const deleteWorkSpace = (id: string): GotResponse<boolean> => request.delete(`/work/v1/delete/${id}`)
+
+/**
+ * 获取业务线列表
+ * @returns 业务线列表
+ */
+export const getWorkSpaceList = (action?: number): GotResponse<Work[]> => request.get('/work/v1/list', {
+  params: {
+    action
+  }
+})

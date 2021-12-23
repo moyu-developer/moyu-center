@@ -2,6 +2,7 @@ import { useMemo, Suspense } from "react";
 import baseRouter from "config/baseRouter";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RequireAuth from "src/components/Auth/Require";
+import Loading from 'src/components/Loading'
 
 import type { MenuDataItem } from "@ant-design/pro-layout";
 
@@ -20,7 +21,7 @@ function createRouteNode(routes: MenuDataItem[]) {
         key={route.path}
         path={route.index ? undefined : route.path}
         index={route.index}
-        element={<Suspense fallback={<div>....</div>}>{element}</Suspense>}
+        element={<Suspense fallback={<Loading/>}>{element}</Suspense>}
       >
         {createRouteNode(
           route.routes && route.routes.length > 0 ? route.routes : []

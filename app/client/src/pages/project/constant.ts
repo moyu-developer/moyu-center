@@ -2,15 +2,15 @@
 export const MENU_TAB_OPTIONS = [
   {
     tab: "我拥有的",
-    key: "1",
+    key: 0
   },
   {
     tab: "我创建的",
-    key: "2",
+    key: 1
   },
   {
     tab: "我加入的",
-    key: "3",
+    key: 2
   },
 ];
 

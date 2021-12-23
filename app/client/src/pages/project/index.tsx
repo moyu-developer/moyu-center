@@ -1,24 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import { PageContainer } from "@ant-design/pro-layout";
 import ProCard from "@ant-design/pro-card";
-import { Badge, Menu } from "antd";
+import { Menu, Result, Typography } from 'antd';
 import { MENU_TAB_OPTIONS, CREATE_ACTION } from "./constant";
+import { useDispatch, useSelector } from 'react-redux';
 import CreateProjectModal from "./components/CreateProjectModal";
-import CreateWorkSpaceModal from "./components/CreateWoekSpace";
+import CreateWorkSpaceModal from "./components/CreateWorkSpace";
 import ProjectCardList from "./components/ProjectCardList";
 import ProjectUsers from "./components/ProjectUsers";
 import OperatingLog from "./components/OperatingLog";
-import Setting from "./components/Setting";
 import styles from "./index.module.less";
 
 import './model'
+import type { Dispatch } from "src/model";
+import type { RootState } from '../../model/index';
 
 export default function () {
-  const [selectContentKey, setSelectContentKey] = useState("list");
+  const [selectContentKey, setSelectContentKey] = useState('list');
+
+  const dispatch: Dispatch = useDispatch()
+
+  /** 获取当前业务线列表 */
+  const { workList, currentWorkId } = useSelector((state: RootState) => ({
+    workList: state.project.workList,
+    currentWorkId: state.project.currentWorkId
+  }))
+
+  useEffect(() => {
+    dispatch.project.getCurrentWorkList()
+  }, [dispatch])
 
   return (
     <PageContainer
       tabList={MENU_TAB_OPTIONS}
+      onTabChange={dispatch.project.getCurrentWorkList}
       extra={[
         <CreateWorkSpaceModal key="create-work" />,
         <CreateProjectModal key="create-project" action={CREATE_ACTION.ADD} />,
@@ -29,12 +44,16 @@ export default function () {
           <ProCard title="业务线归属" colSpan="250px">
             <Menu
               className={styles.projectMenu}
-              selectedKeys={["1"]}
-              direction="ltr"
+              selectedKeys={currentWorkId ? [currentWorkId] : []}
+              mode="inline"
+              onSelect={(row) => dispatch.project.changeMenuItem(row.key)}
             >
-              <Menu.Item key="1">
-                <Badge status="processing" text="Success" />
-              </Menu.Item>
+              {
+                workList.map(work => <Menu.Item key={work._id}>
+                  <Typography.Paragraph ellipsis={{ rows: 1 }}>{work.name}</Typography.Paragraph>
+                
+              </Menu.Item>)
+              }
             </Menu>
           </ProCard>
           <ProCard
@@ -49,11 +68,8 @@ export default function () {
             <ProCard.TabPane key="operating" tab="操作记录">
               <OperatingLog />
             </ProCard.TabPane>
-            <ProCard.TabPane key="users" tab="成员列表">
+            <ProCard.TabPane key="users" tab="业务线设置">
               <ProjectUsers />
-            </ProCard.TabPane>
-            <ProCard.TabPane key="setting" tab="业务线设置">
-              <Setting />
             </ProCard.TabPane>
           </ProCard>
         </ProCard>

@@ -23,14 +23,20 @@ export default ((props) => {
   console.log(dispatch.project, 'dispatch')
 
   const title = useMemo(
-    () => (props.payload ? "修改业务线" : "新建业务线"),
+    () => ({
+      text: props.payload ? "修改业务线" : "新建业务线",
+      buttonType: props.payload ? "primary" : "link" 
+    } as {
+      text: string,
+      buttonType: "primary" | "link" 
+    }),
     [props.payload]
   );
 
   return (
     <ModalForm<Required<CreateWorkSpacePayload>>
-      title={title}
-      trigger={<Button type="link">{title}</Button>}
+      title={title.text}
+      trigger={<Button type={ title.buttonType }>{title.text}</Button>}
       autoFocusFirstInput
       onFinish={dispatch.project.createCurrentWorkForm}
     >
@@ -47,7 +53,8 @@ export default ((props) => {
           rules={[{ required: true, message: "请输入业务线名称" }]}
         />
 
-        <ProFormSelect
+        {
+          title.buttonType === 'link' &&  <ProFormSelect
           width="md"
           name="users"
           label="业务线成员"
@@ -56,6 +63,8 @@ export default ((props) => {
           placeholder="请选择需要添加的业务线成员"
           tooltip="创建业务线的时候，可以将你的成员快速的拉入当前空间内。"
         />
+        }
+        
       </ProFormGroup>
       <ProFormTextArea
         width="lg"

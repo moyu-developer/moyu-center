@@ -79,7 +79,7 @@ export default () => {
                   <Tooltip title="编辑" key="edit">
                     <EditOutlined />
                   </Tooltip>,
-                  <Tooltip title="删除" key="ellipsis">
+                  <Tooltip title="删除" key="ellipsis" >
                     <DeleteOutlined
                       onClick={() => handleCardAction(CARD_ACTION.DELETE)}
                     />

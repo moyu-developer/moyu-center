@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ProCard from "@ant-design/pro-card";
-import { Tree, Menu } from "antd";
-
-import styles from "./index.module.less";
+import { Menu, Descriptions, Button } from "antd";
+import DescriptionsItem from "antd/lib/descriptions/Item";
+import RuntimeAction from '../RuntimeAction'
 
 const { SubMenu } = Menu;
 
@@ -52,7 +52,11 @@ export default function () {
           }}
         >
           <ProCard.TabPane key="query" tab="查看">
-            1
+            <div>
+              <Descriptions title="基本信息" extra={<RuntimeAction/>}>
+                <DescriptionsItem>111</DescriptionsItem>
+              </Descriptions>
+            </div>
           </ProCard.TabPane>
           <ProCard.TabPane key="change" tab="编辑">
             2

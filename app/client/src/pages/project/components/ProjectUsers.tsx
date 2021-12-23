@@ -1,5 +1,8 @@
-import { Button, Tag, Space } from "antd";
+import { Button, Tag, Space, Alert, Popconfirm } from "antd";
 import ProList from "@ant-design/pro-list";
+import CreateWorkSpace from './CreateWorkSpace'
+import { useDispatch } from "react-redux";
+import type { Dispatch } from "src/model";
 
 const dataSource = [
   {
@@ -29,6 +32,9 @@ const dataSource = [
 ];
 
 export default function () {
+
+  const dispatch: Dispatch = useDispatch()
+
   return (
     <div className="project-view__content__menu">
       <ProList<any>
@@ -37,9 +43,7 @@ export default function () {
           <Button key="add" type="link">
             前往用户中心
           </Button>,
-          <Button key="add" type="primary">
-            邀请成员
-          </Button>,
+          <CreateWorkSpace key="d" payload={1} />
         ]}
         onRow={(record: any) => ({
           onMouseEnter: () => {
@@ -68,7 +72,6 @@ export default function () {
             render: () => (
               <Space size={0}>
                 <Tag color="blue">Ant Design</Tag>
-                <Tag color="#5BD8A6">TechUI</Tag>
               </Space>
             ),
           },
@@ -102,6 +105,20 @@ export default function () {
           },
         }}
       />
+      <Alert
+      message="危险动作"
+      description="您确认要删除该业务线吗？删除后业务线下所有的服务和项目将被清空。"
+      type="error"
+      showIcon
+      action={
+        <Popconfirm title="确认删除" okText="我确定" onConfirm={() => dispatch.project.deleteWorkFormById()}>
+          <Button danger>
+            我要删除
+          </Button>
+        </Popconfirm>
+        
+      }
+    />
     </div>
   );
 }

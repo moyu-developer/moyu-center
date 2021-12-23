@@ -47,8 +47,9 @@ export class WorkRecordService {
   async deleteAllRecordByWorkId (id: string): Promise<boolean> {
     try {
       const records = await this.workRecordModel.deleteMany({
-        work: id
+        work_id: id
       }).exec()
+      console.log(records,'records')
       return records.deletedCount > 0
     } catch (error) {
       throw new GlobalServiceError(HttpStatus.INTERNAL_SERVER_ERROR)
