@@ -1,4 +1,4 @@
-import { Carousel, Space, Typography } from "antd";
+import { Carousel, Space } from "antd";
 import authLogo from "src/icons/login/auth.svg";
 import docsLogo from "src/icons/login/docs.svg";
 import endLogo from "src/icons/login/end.svg";

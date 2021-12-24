@@ -42,6 +42,9 @@ export default function () {
       <div className={styles.project}>
         <ProCard split="vertical" className={styles.projectBody}>
           <ProCard title="业务线归属" colSpan="250px">
+            {
+              workList.length === 0 && <Result />
+            }
             <Menu
               className={styles.projectMenu}
               selectedKeys={currentWorkId ? [currentWorkId] : []}

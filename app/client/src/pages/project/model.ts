@@ -4,17 +4,17 @@ import store from "src/model";
 import type { CreateWorkSpacePayload, Work} from "src/common/api/work";
 import { createWorkSpace , deleteWorkSpace, getWorkSpaceList } from "src/common/api/work";
 import { message } from 'antd';
-import { RootState } from '../../model/index';
-
 export type ProjectModel = typeof projectModel;
 interface ProjectState {
   workList: Work[]
   currentWorkId: string,
+  action: number
 }
 
 const initializeProjectState: ProjectState = {
   workList: [],
-  currentWorkId: ''
+  currentWorkId: '',
+  action: 0,
 };
 
 const projectModel = createModel<RootModel>()({
@@ -38,6 +38,7 @@ const projectModel = createModel<RootModel>()({
      */
     deleteWorkFormById: async (_, state: any) => {
       const { data = false, message: errMsg } = await deleteWorkSpace(state.project.currentWorkId)
+      await dispatch.project.getCurrentWorkList()
       message[data ? 'success' : 'error'](data ? '删除业务线成功' : `删除业务线失败: ${errMsg}`)
       return data
     },
@@ -68,6 +69,13 @@ const projectModel = createModel<RootModel>()({
       return {
         ...state,
         currentWorkId: id
+      }
+    },
+
+    changeTabActiveKey(state, action) {
+      return {
+        ...state,
+        action
       }
     }
   },

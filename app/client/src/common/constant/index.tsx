@@ -1,0 +1,1 @@
+export const DateFormatRule = 'YYYY年MM月DD日'
