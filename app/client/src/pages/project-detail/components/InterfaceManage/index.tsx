@@ -6,6 +6,8 @@ import SearchToolBar from "../SearchToolBar";
 import HttpMethodTag from "src/components/HttpMethodTag";
 import DayJS from 'dayjs'
 import { DateFormatRule } from "src/common/constant";
+import ReadonlyJSONView from 'src/components/ReadonlyJSONView';
+import InterfaceParams from '../InterfaceParams'
 
 const { SubMenu } = Menu;
 
@@ -61,15 +63,34 @@ export default function () {
                 extra={<RuntimeAction />}
                 column={5}
               >
+                <Descriptions.Item label="ProjectId">
+                  <Typography.Link copyable>{'api1233444444444'}</Typography.Link>
+                </Descriptions.Item>
                 <Descriptions.Item label="接口名称">订单生成创建接口</Descriptions.Item>
                 <Descriptions.Item label="创建人">wangly19</Descriptions.Item>
                 <Descriptions.Item label="最后修改">--</Descriptions.Item>
                 <Descriptions.Item label="操作时间">{ DayJS().format(DateFormatRule) }</Descriptions.Item>
               </Descriptions>
-              <Descriptions>
-                <Descriptions.Item label="接口路径">
+              <Descriptions column={5}>
+                <Descriptions.Item label="接口路径" span={1}>
                   {<HttpMethodTag method="POST" />}
                   <Typography.Link copyable>{'/work/v1/list'}</Typography.Link>
+                </Descriptions.Item>
+                <Descriptions.Item label="Mock接口地址" span={4}>
+                  <Typography.Link copyable>{'http://localhost:3000/project/detail'}</Typography.Link>
+                </Descriptions.Item>
+                <Descriptions.Item label="接口描述" span={5}>
+                  Updates a pet in the store with form data Copy
+                </Descriptions.Item>
+              </Descriptions>
+              <Descriptions title="请求参数">
+              <Descriptions.Item>
+                <InterfaceParams/>
+                </Descriptions.Item>
+              </Descriptions>
+              <Descriptions title="返回结果值">
+                <Descriptions.Item>
+                  <ReadonlyJSONView json={{ a: 1 }} />
                 </Descriptions.Item>
               </Descriptions>
             </div>

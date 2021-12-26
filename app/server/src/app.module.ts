@@ -9,6 +9,7 @@ import { AuthModule } from './logical/auth/auth.module';
 import { UsersController } from './user/user.controller';
 import { UsersModule } from './user/user.module';
 import { WorkModule } from './work/work.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { WorkModule } from './work/work.module';
     UsersModule,
     AuthModule,
     WorkModule,
+    UploadModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],
