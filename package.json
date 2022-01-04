@@ -9,6 +9,7 @@
     "build:client": "pnpm run build --filter @moyu/client",
     "dev:server": "pnpm run start:dev --filter @moyu/server",
     "build:server": "pnpm run build --filter @moyu/server",
+    "dev:adapter": "pnpm run dev --filter @moyu/adapter",
     "preview": "pnpm run serve --filter @moyu/server",
     "lint:js": "eslint --ext .js,.jsx,.ts,.tsx ./app",
     "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx ./app"
