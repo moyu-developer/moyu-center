@@ -12,7 +12,7 @@
 
 </div>
 
-<img src="https://cdn.nlark.com/yuque/0/2021/png/634029/1639491995065-0de49d64-1387-4098-b290-dbe127bb0bad.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0" />
+<img src="./static/login-preview.png" />
 
 简体中文 | [开发文档](./DEVELOP.md) | [适配器](./app/adapter/README.md)
 
