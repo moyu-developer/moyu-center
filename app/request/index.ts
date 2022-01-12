@@ -31,7 +31,7 @@ class GotAxios {
     if (options) {
       this.init();
     } else {
-      throw new Error('can not find \'options\' property is not found');
+      throw new Error('can not find options property is not found');
     }
   }
 

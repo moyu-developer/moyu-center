@@ -1,10 +1,12 @@
-import {
+import type {
   CallHandler,
   ExecutionContext,
-  Injectable,
-  NestInterceptor,
+  NestInterceptor} from '@nestjs/common';
+import {
+  Injectable
 } from '@nestjs/common';
-import { Observable, map } from 'rxjs';
+import type { Observable} from 'rxjs';
+import { map } from 'rxjs';
 import { HttpCode, codeMessage } from '../enums/http';
 
 @Injectable()
